@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Booking — Another House</title>
+  <meta name="description" content="Book your stay at Another House.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --cream: #F4EFE6;
+      --parchment: #EDE5D8;
+      --ink: #191614;
+      --ink60: rgba(25,22,20,.6);
+      --ink30: rgba(25,22,20,.3);
+      --ink10: rgba(25,22,20,.1);
+      --gold: #C4944A;
+      --olive: #5A6545;
+      --white: #FDFAF6;
+    }
+    
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100dvh;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: .02;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px;
+    }
+    
+    .gold-line {
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+    
+    /* ════════════════════════════════
+       HERO
+    ════════════════════════════════ */
+    .hero {
+      background: var(--ink);
+      padding: 80px 20px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=50');
+      background-size: cover;
+      background-position: center;
+      opacity: .12;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .hero-label span {
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 44px;
+      font-weight: 300;
+      line-height: .92;
+      color: var(--cream);
+    }
+    
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    
+    .hero-desc {
+      margin-top: 12px;
+      font-size: 13px;
+      color: rgba(244,239,230,.5);
+      line-height: 1.6;
+    }
+    
+    /* Steps */
+    .steps {
+      display: flex;
+      gap: 0;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(244,239,230,.1);
+    }
+    
+    .step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 500;
+      border: 1px solid rgba(244,239,230,.2);
+      color: rgba(244,239,230,.3);
+      transition: all .3s;
+    }
+    
+    .step.active .step-num {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--ink);
+    }
+    
+    .step.done .step-num {
+      background: var(--olive);
+      border-color: var(--olive);
+      color: var(--cream);
+    }
+    
+    .step-label {
+      font-size: 8px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(244,239,230,.3);
+      transition: color .3s;
+    }
+    
+    .step.active .step-label,
+    .step.done .step-label {
+      color: rgba(244,239,230,.6);
+    }
+    
+    /* ════════════════════════════════
+       BOOKING FORM
+    ════════════════════════════════ */
+    .booking-form {
+      padding: 0 0 40px;
+    }
+    
+    .form-section {
+      background: var(--white);
+      border-bottom: 1px solid var(--ink10);
+    }
+    
+    .form-section-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px;
+      border-bottom: 1px solid var(--ink10);
+    }
+    
+    .form-section-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 500;
+      background: var(--gold);
+      color: var(--ink);
+      flex-shrink: 0;
+    }
+    
+    .form-section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 300;
+    }
+    
+    .form-section-body {
+      padding: 20px;
+    }
+    
+    /* Room selector */
+    .room-selector {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    
+    .room-option {
+      position: relative;
+      border: 1px solid var(--ink10);
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color .25s;
+    }
+    
+    .room-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .room-option.selected {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px var(--gold);
+    }
+    
+    .room-option-img {
+      width: 100%;
+      height: 70px;
+      object-fit: cover;
+      opacity: .8;
+      transition: opacity .3s;
+    }
+    
+    .room-option.selected .room-option-img {
+      opacity: 1;
+    }
+    
+    .room-option-body {
+      padding: 10px 12px;
+      background: var(--cream);
+    }
+    
+    .room-option-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 300;
+    }
+    
+    .room-option-price {
+      font-size: 10px;
+      color: var(--ink30);
+      margin-top: 2px;
+    }
+    
+    .room-option-check {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(.7);
+      transition: opacity .25s, transform .25s;
+    }
+    
+    .room-option.selected .room-option-check {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    /* Form fields */
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    
+    .field:last-child {
+      margin-bottom: 0;
+    }
+    
+    .field label {
+      font-size: 9px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink30);
+    }
+    
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 14px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ink);
+      background: var(--cream);
+      border: 1px solid var(--ink10);
+      border-radius: 4px;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--gold);
+    }
+    
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: var(--ink30);
+    }
+    
+    .field textarea {
+      resize: vertical;
+      min-height: 100px;
+      line-height: 1.6;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    
+    /* Guests selector */
+    .guests-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    
+    .guest-btn {
+      padding: 12px 8px;
+      font-size: 14px;
+      font-weight: 400;
+      text-align: center;
+      background: var(--cream);
+      border: 1px solid var(--ink10);
+      border-radius: 4px;
+      cursor: pointer;
+      color: var(--ink60);
+      -webkit-tap-highlight-color: transparent;
+      transition: all .2s;
+    }
+    
+    .guest-btn.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--cream);
+    }
+    
+    /* ════════════════════════════════
+       SUMMARY
+    ════════════════════════════════ */
+    .summary {
+      background: var(--ink);
+      margin: 20px;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    
+    .summary-room {
+      position: relative;
+      height: 140px;
+    }
+    
+    .summary-room-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .5;
+    }
+    
+    .summary-room-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(25,22,20,.9) 0%, transparent 50%);
+    }
+    
+    .summary-room-body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px;
+    }
+    
+    .summary-room-label {
+      font-size: 9px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    
+    .summary-room-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 300;
+      color: var(--cream);
+    }
+    
+    .summary-room-name.empty {
+      color: rgba(244,239,230,.3);
+      font-style: italic;
+    }
+    
+    .summary-details {
+      padding: 16px;
+      border-bottom: 1px solid rgba(244,239,230,.1);
+    }
+    
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+    }
+    
+    .summary-row-label {
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(244,239,230,.4);
+    }
+    
+    .summary-row-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--cream);
+    }
+    
+    .summary-row-value.placeholder {
+      color: rgba(244,239,230,.3);
+      font-style: italic;
+      font-size: 14px;
+    }
+    
+    .summary-price {
+      padding: 16px;
+      background: rgba(244,239,230,.05);
+    }
+    
+    .summary-price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+    
+    .summary-price-row:last-child {
+      margin-bottom: 0;
+    }
+    
+    .summary-price-label {
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(244,239,230,.5);
+    }
+    
+    .summary-price-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--cream);
+    }
+    
+    .summary-price-total {
+      border-top: 1px solid rgba(244,239,230,.1);
+      padding-top: 12px;
+      margin-top: 12px;
+    }
+    
+    .summary-price-total .summary-price-value {
+      font-size: 24px;
+    }
+    
+    /* Submit */
+    .submit-section {
+      padding: 20px;
+    }
+    
+    .submit-note {
+      font-size: 11px;
+      color: var(--ink30);
+      line-height: 1.5;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    
+    .btn-submit {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 18px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--cream);
+      background: var(--ink);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    .btn-submit:active {
+      background: var(--olive);
+    }
+    
+    /* ════════════════════════════════
+       MODAL
+    ════════════════════════════════ */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(25,22,20,.8);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .modal-backdrop.open {
+      display: flex;
+    }
+    
+    .modal {
+      background: var(--cream);
+      border-radius: 8px;
+      padding: 40px 24px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      animation: modalIn .4s ease;
+    }
+    
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .modal-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--olive);
+      color: var(--cream);
+      border-radius: 4px;
+    }
+    
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 300;
+      line-height: 1;
+    }
+    
+    .modal-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    
+    .modal-body {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--ink60);
+      line-height: 1.7;
+    }
+    
+    .modal-actions {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .modal-close {
+      width: 100%;
+      padding: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      background: var(--ink);
+      color: var(--cream);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .modal-back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink60);
+      text-decoration: none;
+      border: 1px solid var(--ink10);
+      border-radius: 4px;
+    }
+    
+  </style>
+</head>
+<body data-header-subtitle="Booking" data-header-cta-text="Rooms" data-header-cta-href="../rooms.html">
+  <div id="siteHeader"></div>
+  
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    
+    <div class="hero-content">
+      <div class="hero-label">
+        <span class="gold-line"></span>
+        <span>Reservation</span>
+      </div>
+      
+      <h1 class="hero-title">Book your <em>stay.</em></h1>
+      
+      <p class="hero-desc">Select a room, choose your dates, and share your details.</p>
+      
+      <div class="steps">
+        <div class="step active" id="step1">
+          <div class="step-num">1</div>
+          <div class="step-label">Room</div>
+        </div>
+        <div class="step" id="step2">
+          <div class="step-num">2</div>
+          <div class="step-label">Dates</div>
+        </div>
+        <div class="step" id="step3">
+          <div class="step-num">3</div>
+          <div class="step-label">Details</div>
+        </div>
+        <div class="step" id="step4">
+          <div class="step-num">4</div>
+          <div class="step-label">Confirm</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- BOOKING FORM -->
+  <div class="booking-form">
+    <!-- Step 1: Room -->
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="form-section-num">1</div>
+        <div class="form-section-title">Choose your room</div>
+      </div>
+      <div class="form-section-body">
+        <div class="room-selector" id="roomSelector">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+    
+    <!-- Step 2: Dates -->
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="form-section-num">2</div>
+        <div class="form-section-title">Dates & guests</div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-row">
+          <div class="field">
+            <label>Check-in</label>
+            <input type="date" id="checkin" required>
+          </div>
+          <div class="field">
+            <label>Check-out</label>
+            <input type="date" id="checkout" required>
+          </div>
+        </div>
+        <div class="field">
+          <label>Guests</label>
+          <div class="guests-row" id="guestsRow">
+            <button type="button" class="guest-btn" data-g="1">1</button>
+            <button type="button" class="guest-btn active" data-g="2">2</button>
+            <button type="button" class="guest-btn" data-g="3">3</button>
+            <button type="button" class="guest-btn" data-g="4">4+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Step 3: Details -->
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="form-section-num">3</div>
+        <div class="form-section-title">Your details</div>
+      </div>
+      <div class="form-section-body">
+        <div class="field">
+          <label>Full name</label>
+          <input type="text" id="name" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label>Phone</label>
+          <input type="tel" id="phone" placeholder="+84 000 000 000" required>
+        </div>
+        <div class="field">
+          <label>Special request (optional)</label>
+          <textarea id="note" placeholder="Any special requests..."></textarea>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Summary -->
+    <div class="summary">
+      <div class="summary-room">
+        <img class="summary-room-img" id="summaryImg" src="https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=600&q=70" alt="Selected room">
+        <div class="summary-room-overlay"></div>
+        <div class="summary-room-body">
+          <div class="summary-room-label">Selected room</div>
+          <div class="summary-room-name empty" id="summaryName">No room selected</div>
+        </div>
+      </div>
+      
+      <div class="summary-details">
+        <div class="summary-row">
+          <span class="summary-row-label">Check-in</span>
+          <span class="summary-row-value placeholder" id="summaryCheckin">—</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-label">Check-out</span>
+          <span class="summary-row-value placeholder" id="summaryCheckout">—</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-label">Guests</span>
+          <span class="summary-row-value" id="summaryGuests">2</span>
+        </div>
+      </div>
+      
+      <div class="summary-price">
+        <div class="summary-price-row">
+          <span class="summary-price-label">Rate / night</span>
+          <span class="summary-price-value" id="summaryRate">—</span>
+        </div>
+        <div class="summary-price-row">
+          <span class="summary-price-label">Nights</span>
+          <span class="summary-price-value" id="summaryNights">—</span>
+        </div>
+        <div class="summary-price-row summary-price-total">
+          <span class="summary-price-label">Total</span>
+          <span class="summary-price-value" id="summaryTotal">—</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Submit -->
+    <div class="submit-section">
+      <p class="submit-note">This is a static demo — no real payment will be processed.</p>
+      <button type="button" class="btn-submit" id="submitBtn">
+        Confirm booking
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <div class="modal-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="modal-title">Booking <em>received.</em></h2>
+      <p class="modal-body" id="modalBody">Thank you for your request.</p>
+      <div class="modal-actions">
+        <button class="modal-close" id="modalClose">Close</button>
+        <a href="../index.html" class="modal-back">Back to home</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- FOOTER -->
+  <div id="siteFooter"></div>
+  
+  <script src="../assets/js/headerMobile.js"></script>
+  <script src="../assets/js/footerMobile.js"></script>
+  <script>
+    const ROOMS = [
+      { id: "romantic", name: "Romantic", price: 990, img: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=400&q=70" },
+      { id: "sky", name: "Sky", price: 890, img: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=400&q=70" },
+      { id: "cinema", name: "Cinema", price: 1090, img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=400&q=70" },
+      { id: "nature", name: "Nature", price: 940, img: "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=400&q=70" },
+      { id: "minimal", name: "Minimal", price: 850, img: "https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=400&q=70" }
+    ];
+    
+    let selectedRoom = null;
+    let guests = 2;
+    
+    // Build room selector
+    const selector = document.getElementById("roomSelector");
+    ROOMS.forEach(room => {
+      const el = document.createElement("div");
+      el.className = "room-option";
+      el.dataset.id = room.id;
+      el.innerHTML = `
+        <img class="room-option-img" src="${room.img}" alt="${room.name}" loading="lazy">
+        <div class="room-option-body">
+          <div class="room-option-name">${room.name}</div>
+          <div class="room-option-price">${room.price.toLocaleString()}k / night</div>
+        </div>
+        <div class="room-option-check">
+          <svg width="10" height="8" viewBox="0 0 12 10" fill="none">
+            <path d="M1 5l3.5 3.5L11 1" stroke="#191614" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      `;
+      el.addEventListener("click", () => selectRoom(room.id));
+      selector.appendChild(el);
+    });
+    
+    function findRoom(value) {
+      if (!value) return null;
+      const normalized = decodeURIComponent(String(value)).trim().toLowerCase();
+      return ROOMS.find(r => r.id.toLowerCase() === normalized || r.name.toLowerCase() === normalized) || null;
+    }
+    
+    function selectRoom(id) {
+      const room = findRoom(id);
+      if (!room) return;
+      selectedRoom = room;
+      
+      document.querySelectorAll(".room-option").forEach(el => {
+        el.classList.toggle("selected", el.dataset.id === room.id);
+      });
+      
+      document.getElementById("summaryImg").src = room.img;
+      const nameEl = document.getElementById("summaryName");
+      nameEl.textContent = room.name;
+      nameEl.classList.remove("empty");
+      document.getElementById("summaryRate").textContent = room.price.toLocaleString() + "k VND";
+      
+      updateSteps();
+      calcTotal();
+    }
+    
+    // Pre-select from URL
+    const params = new URLSearchParams(location.search);
+    const urlRoom = params.get("room") || params.get("id") || params.get("concept");
+    if (urlRoom) selectRoom(urlRoom);
+    
+    // Guests
+    document.querySelectorAll(".guest-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".guest-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        guests = parseInt(btn.dataset.g);
+        document.getElementById("summaryGuests").textContent = guests + (guests >= 4 ? "+" : "");
+        updateSteps();
+      });
+    });
+    
+    // Dates
+    const checkinEl = document.getElementById("checkin");
+    const checkoutEl = document.getElementById("checkout");
+    
+    const today = new Date().toISOString().split("T")[0];
+    checkinEl.min = today;
+    checkoutEl.min = today;
+    
+    function fmtDate(str) {
+      if (!str) return "—";
+      const d = new Date(str + "T00:00:00");
+      return d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+    }
+    
+    function calcTotal() {
+      const ci = checkinEl.value, co = checkoutEl.value;
+      if (ci && co && selectedRoom) {
+        const nights = Math.round((new Date(co) - new Date(ci)) / 86400000);
+        if (nights > 0) {
+          document.getElementById("summaryNights").textContent = nights + " night" + (nights > 1 ? "s" : "");
+          document.getElementById("summaryTotal").textContent = (selectedRoom.price * nights).toLocaleString() + "k VND";
+          document.getElementById("summaryCheckin").textContent = fmtDate(ci);
+          document.getElementById("summaryCheckin").classList.remove("placeholder");
+          document.getElementById("summaryCheckout").textContent = fmtDate(co);
+          document.getElementById("summaryCheckout").classList.remove("placeholder");
+          updateSteps();
+          return;
+        }
+      }
+      if (ci) {
+        document.getElementById("summaryCheckin").textContent = fmtDate(ci);
+        document.getElementById("summaryCheckin").classList.remove("placeholder");
+      }
+      if (co) {
+        document.getElementById("summaryCheckout").textContent = fmtDate(co);
+        document.getElementById("summaryCheckout").classList.remove("placeholder");
+      }
+      document.getElementById("summaryNights").textContent = "—";
+      document.getElementById("summaryTotal").textContent = "—";
+    }
+    
+    checkinEl.addEventListener("change", () => {
+      if (checkinEl.value) checkoutEl.min = checkinEl.value;
+      calcTotal();
+    });
+    checkoutEl.addEventListener("change", calcTotal);
+    
+    // Steps
+    function updateSteps() {
+      const nameVal = document.getElementById("name").value;
+      const phoneVal = document.getElementById("phone").value;
+      const s1 = document.getElementById("step1");
+      const s2 = document.getElementById("step2");
+      const s3 = document.getElementById("step3");
+      const s4 = document.getElementById("step4");
+      
+      if (selectedRoom) { s1.classList.add("done"); s1.classList.remove("active"); }
+      if (selectedRoom && !(checkinEl.value && checkoutEl.value)) { s2.classList.add("active"); s2.classList.remove("done"); }
+      if (checkinEl.value && checkoutEl.value) { s2.classList.add("done"); s2.classList.remove("active"); }
+      if (checkinEl.value && checkoutEl.value && !(nameVal && phoneVal)) { s3.classList.add("active"); s3.classList.remove("done"); }
+      if (nameVal && phoneVal) { s3.classList.add("done"); s3.classList.remove("active"); s4.classList.add("active"); }
+    }
+    
+    document.getElementById("name").addEventListener("input", updateSteps);
+    document.getElementById("phone").addEventListener("input", updateSteps);
+    
+    // Submit
+    document.getElementById("submitBtn").addEventListener("click", () => {
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const ci = checkinEl.value;
+      const co = checkoutEl.value;
+      
+      if (!selectedRoom) { alert("Please select a room."); return; }
+      if (!ci || !co) { alert("Please select your dates."); return; }
+      if (!name) { alert("Please enter your name."); return; }
+      if (!phone) { alert("Please enter your phone number."); return; }
+      if (new Date(co) <= new Date(ci)) { alert("Check-out must be after check-in."); return; }
+      
+      const nights = Math.round((new Date(co) - new Date(ci)) / 86400000);
+      document.getElementById("modalBody").textContent = `${name}, we've received your booking for the ${selectedRoom.name} room — ${fmtDate(ci)} to ${fmtDate(co)} (${nights} night${nights > 1 ? "s" : ""}).`;
+      
+      document.getElementById("modalBackdrop").classList.add("open");
+      document.getElementById("step4").classList.add("done");
+      document.getElementById("step4").classList.remove("active");
+    });
+    
+    document.getElementById("modalClose").addEventListener("click", () => {
+      document.getElementById("modalBackdrop").classList.remove("open");
+    });
+    
+    document.getElementById("modalBackdrop").addEventListener("click", e => {
+      if (e.target === document.getElementById("modalBackdrop"))
+        document.getElementById("modalBackdrop").classList.remove("open");
+    });
+  </script>
+</body>
+</html>

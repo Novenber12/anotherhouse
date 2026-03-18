@@ -1,0 +1,1237 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Another House — Creative Homestay</title>
+    <meta name="description" content="Another House is a creative boutique homestay where every room has a different concept." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <script src="assets/js/tailwind-theme.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #F4EFE6;
+      --parchment: #EDE5D8;
+      --ink:     #191614;
+      --ink60:   rgba(25,22,20,.6);
+      --ink30:   rgba(25,22,20,.3);
+      --ink10:   rgba(25,22,20,.1);
+      --gold:    #C4944A;
+      --gold-lt: #D4AA6A;
+      --olive:   #5A6545;
+      --white:   #FDFAF6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── Noise overlay ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 999;
+      pointer-events: none;
+      opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px;
+    }
+
+    /* ── Typography ── */
+    .f-display {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -.01em;
+    }
+    .f-display-italic {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.05;
+    }
+    .f-label {
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+    .f-body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ── Utilities ── */
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+    @media (max-width: 767px) { .container { padding: 0 20px; } }
+
+    .gold-line {
+      display: inline-block;
+      width: 32px; height: 1px;
+      background: var(--gold);
+      vertical-align: middle;
+      margin-right: 12px;
+    }
+
+    /* ────────────────────────────────
+       HEADER
+    ──────────────────────────────── */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 40px;
+      height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(244,239,230,.85);
+      backdrop-filter: blur(20px) saturate(160%);
+      border-bottom: 1px solid var(--ink10);
+      transition: background .4s;
+    }
+    @media (max-width: 767px) { .site-header { padding: 0 20px; } }
+
+    .header-brand {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none; color: var(--ink);
+    }
+    .header-brand-mark {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: var(--ink);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .header-brand-mark span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; font-weight: 400;
+      color: var(--cream); letter-spacing: .05em;
+    }
+    .header-brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 400;
+      letter-spacing: .04em;
+    }
+
+    .header-nav {
+      display: flex; align-items: center; gap: 2px;
+    }
+    .header-nav a {
+      padding: 6px 14px;
+      font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--ink60); text-decoration: none;
+      transition: color .2s;
+    }
+    .header-nav a:hover { color: var(--ink); }
+
+    .header-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 20px;
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      font-weight: 500;
+      color: var(--cream); background: var(--ink);
+      text-decoration: none; border-radius: 2px;
+      transition: background .3s;
+    }
+    .header-cta:hover { background: var(--olive); }
+    .header-cta svg { opacity: .6; }
+
+    @media (max-width: 767px) {
+      .header-nav { display: none; }
+    }
+
+    /* ────────────────────────────────
+       HERO
+    ──────────────────────────────── */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      padding-top: 72px;
+    }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+    }
+
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 80px 56px 80px 40px;
+      position: relative; z-index: 2;
+    }
+    @media (max-width: 767px) { .hero-left { padding: 60px 20px; } }
+
+    .hero-eyebrow {
+      display: flex; align-items: center;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow-text {
+      font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(56px, 7vw, 96px);
+      font-weight: 300;
+      line-height: .96;
+      letter-spacing: -.02em;
+      color: var(--ink);
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-desc {
+      margin-top: 32px;
+      max-width: 400px;
+      font-size: 15px;
+      color: var(--ink60);
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      margin-top: 40px;
+      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 14px 32px;
+      font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 500;
+      color: var(--cream); background: var(--ink);
+      text-decoration: none; border-radius: 2px;
+      position: relative; overflow: hidden;
+      transition: color .4s;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--gold);
+      transform: translateX(-101%);
+      transition: transform .5s cubic-bezier(.7,0,.3,1);
+    }
+    .btn-primary:hover::before { transform: translateX(0); }
+    .btn-primary span { position: relative; z-index: 1; }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--ink60); text-decoration: none;
+      transition: color .2s;
+    }
+    .btn-ghost:hover { color: var(--ink); }
+    .btn-ghost-arrow {
+      width: 28px; height: 1px; background: currentColor;
+      position: relative; transition: width .3s ease;
+    }
+    .btn-ghost-arrow::after {
+      content: ''; position: absolute; right: 0; top: -3px;
+      width: 7px; height: 7px;
+      border-right: 1px solid currentColor;
+      border-top: 1px solid currentColor;
+      transform: rotate(45deg);
+    }
+    .btn-ghost:hover .btn-ghost-arrow { width: 40px; }
+
+    .hero-stats {
+      margin-top: 60px;
+      display: flex; gap: 32px;
+      padding-top: 32px;
+      border-top: 1px solid var(--ink10);
+    }
+    .hero-stat-label {
+      font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--ink30); margin-bottom: 6px;
+    }
+    .hero-stat-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 400; letter-spacing: -.01em;
+    }
+
+    /* Hero right — image mosaic */
+    .hero-right {
+      position: relative;
+      background: var(--ink);
+      overflow: hidden;
+    }
+    @media (max-width: 900px) {
+      .hero-right { height: 60vw; min-height: 320px; }
+    }
+
+    .hero-img-main {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: .75;
+      transition: transform 8s ease;
+    }
+    .hero-right:hover .hero-img-main { transform: scale(1.04); }
+
+    .hero-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, transparent 40%, rgba(25,22,20,.6) 100%);
+    }
+
+    .hero-badge {
+      position: absolute; bottom: 36px; left: 36px;
+      background: rgba(244,239,230,.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--ink10);
+      padding: 16px 20px;
+      border-radius: 4px;
+    }
+    .hero-badge-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px; font-weight: 300; line-height: 1;
+    }
+    .hero-badge-text {
+      margin-top: 4px;
+      font-size: 10px; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--ink60);
+    }
+
+    /* Scroll hint */
+    .scroll-hint {
+      position: absolute; bottom: 32px; right: 32px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--cream);
+      z-index: 3;
+    }
+    .scroll-hint span {
+      font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+      writing-mode: vertical-rl; opacity: .5;
+    }
+    .scroll-hint-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, rgba(255,255,255,.4), transparent);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%, 100% { transform: scaleY(1); opacity: .5; }
+      50%       { transform: scaleY(.5); opacity: .2; }
+    }
+
+    /* ────────────────────────────────
+       MARQUEE
+    ──────────────────────────────── */
+    .marquee-strip {
+      background: var(--ink);
+      padding: 18px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-inner {
+      display: inline-flex; gap: 0;
+      animation: marqueeScroll 24s linear infinite;
+    }
+    .marquee-inner:hover { animation-play-state: paused; }
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      display: inline-flex; align-items: center; gap: 28px;
+      padding: 0 28px;
+      font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(244,239,230,.5);
+      font-weight: 400;
+    }
+    .marquee-dot {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--gold); flex-shrink: 0;
+    }
+
+    /* ────────────────────────────────
+       INTRO
+    ──────────────────────────────── */
+    .intro {
+      padding: 120px 0;
+    }
+
+    .intro-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .intro-inner { grid-template-columns: 1fr; gap: 48px; }
+    }
+
+    .intro-label {
+      display: flex; align-items: center; margin-bottom: 24px;
+    }
+
+    .intro-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 4vw, 60px);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -.01em;
+    }
+    .intro-title em { font-style: italic; color: var(--gold); }
+
+    .intro-body {
+      margin-top: 24px;
+      font-size: 15px; color: var(--ink60); line-height: 1.8;
+    }
+
+    .intro-tags {
+      margin-top: 32px;
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .intro-tag {
+      padding: 6px 14px;
+      font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+      border: 1px solid var(--ink10);
+      border-radius: 2px;
+      color: var(--ink60);
+    }
+
+    .intro-img-wrap {
+      position: relative;
+    }
+    .intro-img-frame {
+      position: relative; overflow: hidden;
+      border-radius: 3px;
+      aspect-ratio: 4/5;
+    }
+    .intro-img-frame img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 6s ease;
+    }
+    .intro-img-wrap:hover .intro-img-frame img { transform: scale(1.05); }
+
+    .intro-img-caption {
+      position: absolute; bottom: -24px; right: 0;
+      font-size: 10px; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--ink30);
+    }
+
+    /* Decorative rotated text */
+    .intro-side-text {
+      position: absolute; left: -20px; top: 50%;
+      transform: translateY(-50%) rotate(-90deg) translateX(-50%);
+      transform-origin: center center;
+      font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--ink30); white-space: nowrap;
+    }
+
+    /* ────────────────────────────────
+       ROOMS
+    ──────────────────────────────── */
+    .rooms-section {
+      padding: 0 0 120px;
+      border-top: 1px solid var(--ink10);
+    }
+
+    .rooms-header {
+      padding: 80px 0 60px;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+    }
+
+    .rooms-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 300; line-height: 1;
+    }
+
+    .rooms-view-all {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--ink60); text-decoration: none;
+      padding-bottom: 2px;
+      border-bottom: 1px solid var(--ink30);
+      transition: color .2s, border-color .2s;
+    }
+    .rooms-view-all:hover { color: var(--gold); border-color: var(--gold); }
+
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    @media (max-width: 900px) {
+      .rooms-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .rooms-grid { grid-template-columns: 1fr; }
+    }
+
+    .room-card {
+      position: relative; overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--ink);
+      text-decoration: none; color: var(--cream);
+      display: block;
+    }
+    .room-card:nth-child(2) { aspect-ratio: 3/5; margin-top: -60px; }
+    @media (max-width: 900px) {
+      .room-card:nth-child(2) { margin-top: 0; aspect-ratio: 3/4; }
+    }
+
+    .room-card-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: .65;
+      transition: opacity .5s, transform .7s ease;
+    }
+    .room-card:hover .room-card-img {
+      opacity: .5; transform: scale(1.06);
+    }
+
+    .room-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(25,22,20,.85) 0%, transparent 55%);
+    }
+
+    .room-card-body {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 28px;
+      transform: translateY(8px);
+      transition: transform .35s ease;
+    }
+    .room-card:hover .room-card-body { transform: translateY(0); }
+
+    .room-card-num {
+      font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 8px;
+    }
+    .room-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 300;
+    }
+    .room-card-desc {
+      margin-top: 8px;
+      font-size: 13px; color: rgba(244,239,230,.6);
+      line-height: 1.6;
+      max-height: 0; overflow: hidden;
+      transition: max-height .4s ease, opacity .3s;
+      opacity: 0;
+    }
+    .room-card:hover .room-card-desc { max-height: 80px; opacity: 1; }
+
+    .room-card-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 16px;
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0;
+      transition: opacity .3s .1s;
+    }
+    .room-card:hover .room-card-link { opacity: 1; }
+
+    /* ────────────────────────────────
+       CONCEPTS
+    ──────────────────────────────── */
+    .concepts {
+      padding: 120px 0;
+      background: var(--ink);
+      color: var(--cream);
+    }
+
+    .concepts-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+
+    .concepts-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 300; line-height: 1;
+      color: var(--cream);
+    }
+
+    .concepts-subtitle {
+      max-width: 320px;
+      font-size: 14px; color: rgba(244,239,230,.5);
+      line-height: 1.7;
+    }
+
+    .concepts-list {
+      display: flex; flex-direction: column;
+      border-top: 1px solid rgba(244,239,230,.08);
+    }
+
+    .concept-row {
+      display: flex; align-items: center;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(244,239,230,.08);
+      text-decoration: none; color: var(--cream);
+      gap: 24px;
+      transition: padding-left .35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .concept-row::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 0; background: rgba(196,148,74,.08);
+      transition: width .4s ease;
+    }
+    .concept-row:hover { padding-left: 20px; }
+    .concept-row:hover::before { width: 100%; }
+
+    .concept-row-num {
+      font-size: 11px; letter-spacing: .15em; color: var(--gold);
+      min-width: 32px;
+      position: relative; z-index: 1;
+    }
+    .concept-row-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(24px, 3vw, 40px); font-weight: 300;
+      flex: 1;
+      position: relative; z-index: 1;
+    }
+    .concept-row-desc {
+      font-size: 13px; color: rgba(244,239,230,.45);
+      max-width: 280px;
+      line-height: 1.6;
+      position: relative; z-index: 1;
+    }
+    @media (max-width: 700px) {
+      .concept-row-desc { display: none; }
+    }
+    .concept-row-arrow {
+      width: 40px; height: 1px;
+      background: rgba(244,239,230,.2);
+      position: relative;
+      transition: width .3s, background .3s;
+      z-index: 1;
+    }
+    .concept-row-arrow::after {
+      content: ''; position: absolute; right: 0; top: -3px;
+      width: 7px; height: 7px;
+      border-right: 1px solid currentColor;
+      border-top: 1px solid currentColor;
+      transform: rotate(45deg);
+      color: rgba(244,239,230,.2);
+    }
+    .concept-row:hover .concept-row-arrow {
+      width: 56px; background: var(--gold);
+    }
+
+    /* ────────────────────────────────
+       REVIEWS
+    ──────────────────────────────── */
+    .reviews {
+      padding: 120px 0;
+    }
+
+    .reviews-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+
+    .reviews-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 300; line-height: 1;
+    }
+
+    .reviews-stars {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .reviews-stars-count {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px; font-weight: 300; letter-spacing: -.02em;
+    }
+    .reviews-stars-label { font-size: 11px; letter-spacing: .1em; color: var(--ink60); }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    @media (max-width: 900px) {
+      .reviews-grid { grid-template-columns: 1fr; gap: 16px; }
+    }
+
+    .review-card {
+      padding: 36px;
+      background: var(--white);
+      border: 1px solid var(--ink10);
+      transition: border-color .25s, box-shadow .25s;
+    }
+    .review-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px var(--gold);
+    }
+
+    .review-stars {
+      display: flex; gap: 3px; margin-bottom: 20px;
+    }
+    .review-star {
+      width: 10px; height: 10px;
+      background: var(--gold);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+
+    .review-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 300; font-style: italic;
+      line-height: 1.5; color: var(--ink);
+      margin-bottom: 28px;
+    }
+
+    .review-author {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .review-author-dot {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--ink); display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px; color: var(--cream);
+    }
+    .review-author-name { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink60); }
+
+    /* ────────────────────────────────
+       CTA SECTION
+    ──────────────────────────────── */
+    .cta-section {
+      padding: 0 0 120px;
+    }
+
+    .cta-block {
+      position: relative; overflow: hidden;
+      background: var(--ink);
+      min-height: 520px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+    }
+    @media (max-width: 900px) {
+      .cta-block { grid-template-columns: 1fr; }
+    }
+
+    .cta-img {
+      position: absolute; right: 0; top: 0; bottom: 0;
+      width: 50%;
+      object-fit: cover; opacity: .5;
+    }
+    @media (max-width: 900px) {
+      .cta-img {
+        position: static; width: 100%; height: 280px;
+        display: block; order: -1;
+      }
+    }
+
+    .cta-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, var(--ink) 40%, transparent 100%);
+    }
+    @media (max-width: 900px) { .cta-overlay { display: none; } }
+
+    .cta-content {
+      position: relative; z-index: 2;
+      padding: 72px 64px;
+    }
+    @media (max-width: 767px) { .cta-content { padding: 48px 24px; } }
+
+    .cta-label {
+      display: flex; align-items: center;
+      margin-bottom: 24px;
+      color: var(--gold);
+    }
+    .cta-label span { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; }
+
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(40px, 5vw, 68px);
+      font-weight: 300; line-height: 1.0;
+      color: var(--cream);
+    }
+    .cta-title em { font-style: italic; color: var(--gold); }
+
+    .cta-body {
+      margin-top: 20px; margin-bottom: 40px;
+      font-size: 15px; color: rgba(244,239,230,.55);
+      line-height: 1.75; max-width: 380px;
+    }
+
+    .cta-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .btn-light {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 14px 32px;
+      font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 500;
+      color: var(--ink); background: var(--cream);
+      text-decoration: none; border-radius: 2px;
+      transition: background .3s, color .3s;
+    }
+    .btn-light:hover { background: var(--gold); color: var(--cream); }
+
+    .btn-outline-light {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 14px 32px;
+      font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 500;
+      color: rgba(244,239,230,.6);
+      border: 1px solid rgba(244,239,230,.2);
+      text-decoration: none; border-radius: 2px;
+      transition: color .3s, border-color .3s;
+    }
+    .btn-outline-light:hover { color: var(--cream); border-color: rgba(244,239,230,.5); }
+
+    /* ────────────────────────────────
+       FOOTER
+    ──────────────────────────────── */
+    .footer {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 64px 0 40px;
+      border-top: 1px solid rgba(244,239,230,.06);
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+    }
+    @media (max-width: 700px) {
+      .footer-inner { grid-template-columns: 1fr; gap: 36px; }
+    }
+
+    .footer-brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-weight: 300;
+      letter-spacing: .04em; margin-bottom: 12px;
+    }
+
+    .footer-brand-desc {
+      font-size: 13px; color: rgba(244,239,230,.4);
+      line-height: 1.7; max-width: 260px;
+    }
+
+    .footer-col-title {
+      font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(244,239,230,.3); margin-bottom: 20px;
+    }
+
+    .footer-links {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+
+    .footer-link {
+      font-size: 14px; color: rgba(244,239,230,.55);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-link:hover { color: var(--gold); }
+
+    .footer-bottom {
+      margin-top: 56px; padding-top: 24px;
+      border-top: 1px solid rgba(244,239,230,.06);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+
+    .footer-copy {
+      font-size: 11px; letter-spacing: .1em;
+      color: rgba(244,239,230,.2); text-transform: uppercase;
+    }
+
+    /* ────────────────────────────────
+       ANIMATIONS
+    ──────────────────────────────── */
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    .fade-up:nth-child(2) { transition-delay: .1s; }
+    .fade-up:nth-child(3) { transition-delay: .2s; }
+    .fade-up:nth-child(4) { transition-delay: .3s; }
+
+    </style>
+  </head>
+
+  <body
+    class="font-sans bg-cream text-ink"
+    data-page="home"
+    data-header-subtitle="Creative boutique homestay"
+    data-header-cta-text="Book now"
+    data-header-cta-href="booking.html"
+  >
+    <div id="siteHeader"></div>
+
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span class="gold-line"></span>
+        <span class="hero-eyebrow-text">Creative boutique homestay · HCMC</span>
+      </div>
+
+      <h1 class="hero-title">
+        Stay in a<br/>room that<br/>feels like a<br/><em>story.</em>
+      </h1>
+
+      <p class="hero-desc">
+        Another House is a boutique homestay where each room has its own concept — romantic, sky, cinema, nature, minimal. Designed to feel calm, modern, and quietly luxurious.
+      </p>
+
+      <div class="hero-actions">
+        <a href="booking.html" class="btn-primary"><span>Book your stay</span></a>
+        <a href="rooms.html" class="btn-ghost">
+          Explore rooms
+          <span class="btn-ghost-arrow"></span>
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-label">Rooms</div>
+          <div class="hero-stat-value">05</div>
+        </div>
+        <div>
+          <div class="hero-stat-label">Concepts</div>
+          <div class="hero-stat-value">05</div>
+        </div>
+        <div>
+          <div class="hero-stat-label">Check-in</div>
+          <div class="hero-stat-value">2PM</div>
+        </div>
+        <div>
+          <div class="hero-stat-label">Mood</div>
+          <div class="hero-stat-value f-display-italic">Calm</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <img
+        class="hero-img-main"
+        src="https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=1600&q=80"
+        alt="Another House interior"
+      />
+      <div class="hero-img-overlay"></div>
+
+      <div class="hero-badge">
+        <div class="hero-badge-num f-display">5★</div>
+        <div class="hero-badge-text">Guest rating</div>
+      </div>
+
+      <div class="scroll-hint">
+        <div class="scroll-hint-line"></div>
+        <span>Scroll</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-inner">
+      <!-- repeated twice for seamless loop -->
+      <span class="marquee-item"><span class="marquee-dot"></span>Romantic</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Sky</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Cinema</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Nature</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Minimal</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Boutique mood</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Minimal luxury</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Unique concepts</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Romantic</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Sky</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Cinema</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Nature</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Minimal</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Boutique mood</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Minimal luxury</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Unique concepts</span>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <section class="intro">
+    <div class="container">
+      <div class="intro-inner">
+        <div>
+          <div class="intro-label">
+            <span class="gold-line"></span>
+            <span class="f-label" style="color: var(--gold)">Our philosophy</span>
+          </div>
+          <h2 class="intro-title">
+            Curated like<br/>a <em>gallery.</em>
+          </h2>
+          <p class="intro-body">
+            We focus on materials, light, and quiet details — the kind you notice slowly. Every room is a different atmosphere, so your stay can match your mood.
+          </p>
+          <div class="intro-tags">
+            <span class="intro-tag">Minimal luxury</span>
+            <span class="intro-tag">Concept-driven</span>
+            <span class="intro-tag">Soft lighting</span>
+            <span class="intro-tag">Modern comfort</span>
+          </div>
+          <div style="margin-top: 40px;">
+            <a href="about.html" class="btn-ghost" style="color: var(--ink60)">
+              About Another House
+              <span class="btn-ghost-arrow"></span>
+            </a>
+          </div>
+        </div>
+        <div class="intro-img-wrap">
+          <span class="intro-side-text">Another House · Est. 2024</span>
+          <div class="intro-img-frame">
+            <img
+              src="https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1200&q=80"
+              alt="Another House interior detail"
+              loading="lazy"
+            />
+          </div>
+          <div class="intro-img-caption">Minimal room concept</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED ROOMS -->
+  <section class="rooms-section">
+    <div class="container">
+      <div class="rooms-header">
+        <div>
+          <div style="display:flex;align-items:center;margin-bottom:16px;">
+            <span class="gold-line"></span>
+            <span class="f-label" style="color: var(--gold)">Our spaces</span>
+          </div>
+          <h2 class="rooms-title f-display">Featured rooms</h2>
+        </div>
+        <a href="rooms.html" class="rooms-view-all">
+          View all rooms
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+            <path d="M1 6h14M9 1l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="container" style="padding-left:0;padding-right:0;max-width:none;">
+      <div class="rooms-grid" style="padding:0 40px;" id="roomsGridWrapper">
+        <!-- Fallback static cards if rooms-data.js not present -->
+        <a href="rooms.html?concept=romantic" class="room-card fade-up">
+          <img class="room-card-img" src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=900&q=70" alt="Romantic room" loading="lazy"/>
+          <div class="room-card-overlay"></div>
+          <div class="room-card-body">
+            <div class="room-card-num">01</div>
+            <div class="room-card-name f-display">Romantic</div>
+            <div class="room-card-desc">Warm light, soft textures, a gentle mood for two.</div>
+            <div class="room-card-link">
+              Explore
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+        </a>
+
+        <a href="rooms.html?concept=sky" class="room-card fade-up">
+          <img class="room-card-img" src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=900&q=70" alt="Sky room" loading="lazy"/>
+          <div class="room-card-overlay"></div>
+          <div class="room-card-body">
+            <div class="room-card-num">02</div>
+            <div class="room-card-name f-display">Sky</div>
+            <div class="room-card-desc">Airy tones, open feeling, bright and calm.</div>
+            <div class="room-card-link">
+              Explore
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+        </a>
+
+        <a href="rooms.html?concept=cinema" class="room-card fade-up">
+          <img class="room-card-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=70" alt="Cinema room" loading="lazy"/>
+          <div class="room-card-overlay"></div>
+          <div class="room-card-body">
+            <div class="room-card-num">03</div>
+            <div class="room-card-name f-display">Cinema</div>
+            <div class="room-card-desc">Projector nights, velvet touch, dim warm glow.</div>
+            <div class="room-card-link">
+              Explore
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCEPTS -->
+  <section class="concepts">
+    <div class="container">
+      <div class="concepts-header">
+        <h2 class="concepts-title">Room <em style="font-style:italic;">concepts</em></h2>
+        <p class="concepts-subtitle">Each concept is designed as a different feeling — not just a style.</p>
+      </div>
+
+      <div class="concepts-list">
+        <a href="rooms.html?concept=romantic" class="concept-row">
+          <span class="concept-row-num">01</span>
+          <span class="concept-row-name">Romantic</span>
+          <span class="concept-row-desc">Warm light, soft textures, gentle mood.</span>
+          <span class="concept-row-arrow"></span>
+        </a>
+        <a href="rooms.html?concept=sky" class="concept-row">
+          <span class="concept-row-num">02</span>
+          <span class="concept-row-name">Sky</span>
+          <span class="concept-row-desc">Airy tones, open feeling, bright calm.</span>
+          <span class="concept-row-arrow"></span>
+        </a>
+        <a href="rooms.html?concept=cinema" class="concept-row">
+          <span class="concept-row-num">03</span>
+          <span class="concept-row-name">Cinema</span>
+          <span class="concept-row-desc">Projector nights, velvet touch, dim glow.</span>
+          <span class="concept-row-arrow"></span>
+        </a>
+        <a href="rooms.html?concept=nature" class="concept-row">
+          <span class="concept-row-num">04</span>
+          <span class="concept-row-name">Nature</span>
+          <span class="concept-row-desc">Green accents, wood warmth, botanical calm.</span>
+          <span class="concept-row-arrow"></span>
+        </a>
+        <a href="rooms.html?concept=minimal" class="concept-row">
+          <span class="concept-row-num">05</span>
+          <span class="concept-row-name">Minimal</span>
+          <span class="concept-row-desc">Clean lines, quiet space, intentional detail.</span>
+          <span class="concept-row-arrow"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews">
+    <div class="container">
+      <div class="reviews-header">
+        <div>
+          <div style="display:flex;align-items:center;margin-bottom:16px;">
+            <span class="gold-line"></span>
+            <span class="f-label" style="color: var(--gold)">Guest voices</span>
+          </div>
+          <h2 class="reviews-title f-display">What guests say</h2>
+        </div>
+        <div class="reviews-stars">
+          <div>
+            <div class="reviews-stars-count">5.0</div>
+            <div class="reviews-stars-label">Average rating</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="review-card fade-up">
+          <div class="review-stars">
+            <div class="review-star"></div>
+            <div class="review-star"></div>
+            <div class="review-star"></div>
+            <div class="review-star"></div>
+            <div class="review-star"></div>
+          </div>
+          <p class="review-quote">"The room felt like a boutique hotel — minimal but warm. Lighting at night was perfect."</p>
+          <div class="review-author">
+            <div class="review-author-dot">L</div>
+            <span class="review-author-name">Linh · Minimal Room</span>
+          </div>
+        </div>
+
+        <div class="review-card fade-up">
+          <div class="review-stars">
+            <div class="review-star"></div>
+            <div class="review-star"></div>
+            <div class="review-star"></div>
+            <div class="review-star"></div>
+            <div class="review-star"></div>
+          </div>
+          <p class="review-quote">"Cinema room is such a vibe. Projector + cozy textures = best staycation."</p>
+          <div class="review-author">
+            <div class="review-author-dot">M</div>
+            <span class="review-author-name">Minh · Cinema Room</span>
+          </div>
+        </div>
+
+        <div class="review-card fade-up">
+          <div class="review-stars">
+            <div class="review-star"></div>
+            <div class="review-star"></div>
+            <div class="review-star"></div>
+            <div class="review-star"></div>
+            <div class="review-star"></div>
+          </div>
+          <p class="review-quote">"Everything looked curated — from the materials to small amenities. Very photogenic."</p>
+          <div class="review-author">
+            <div class="review-author-dot">H</div>
+            <span class="review-author-name">Hà · Romantic Room</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-block">
+        <img
+          class="cta-img"
+          src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=70"
+          alt="Another House room"
+          loading="lazy"
+        />
+        <div class="cta-overlay"></div>
+
+        <div class="cta-content">
+          <div class="cta-label">
+            <span class="gold-line"></span>
+            <span>Ready?</span>
+          </div>
+          <h2 class="cta-title">
+            Choose your<br/><em>concept.</em>
+          </h2>
+          <p class="cta-body">
+            Pick the mood you want — romantic, sky, cinema, nature, or minimal — and we'll take care of the rest.
+          </p>
+          <div class="cta-actions">
+            <a href="booking.html" class="btn-light">Book now</a>
+            <a href="rooms.html" class="btn-outline-light">View rooms</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+    <div id="siteFooter"></div>
+
+  <script>
+
+    // Intersection Observer for fade-up
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+    <script src="../assets/js/header.js"></script>
+    <script src="../assets/js/footer.js"></script>
+  </body>
+</html>
+

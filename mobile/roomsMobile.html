@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Rooms — Another House</title>
+  <meta name="description" content="Explore Another House rooms: romantic, sky, cinema, nature, minimal.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --cream: #F4EFE6;
+      --parchment: #EDE5D8;
+      --ink: #191614;
+      --ink60: rgba(25,22,20,.6);
+      --ink30: rgba(25,22,20,.3);
+      --ink10: rgba(25,22,20,.1);
+      --gold: #C4944A;
+      --olive: #5A6545;
+      --white: #FDFAF6;
+    }
+    
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100dvh;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: .02;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px;
+    }
+    
+    .gold-line {
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+    
+    /* ════════════════════════════════
+       HERO
+    ════════════════════════════════ */
+    .hero {
+      position: relative;
+      padding-top: 60px;
+      background: var(--ink);
+      overflow: hidden;
+    }
+    
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=50');
+      background-size: cover;
+      background-position: center;
+      opacity: .2;
+    }
+    
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, var(--cream) 100%);
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 40px 20px 32px;
+    }
+    
+    .hero-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .hero-label span {
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 300;
+      line-height: .92;
+      color: var(--cream);
+    }
+    
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    
+    .hero-desc {
+      margin-top: 16px;
+      font-size: 14px;
+      color: rgba(244,239,230,.55);
+      line-height: 1.7;
+    }
+    
+    .hero-book {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding: 14px 20px;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--cream);
+      background: transparent;
+      border: 1px solid rgba(244,239,230,.3);
+      text-decoration: none;
+      border-radius: 2px;
+    }
+    
+    .hero-book:active {
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+    
+    /* ════════════════════════════════
+       FILTERS
+    ════════════════════════════════ */
+    .filters {
+      position: sticky;
+      top: 60px;
+      z-index: 100;
+      background: rgba(244,239,230,.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--ink10);
+      padding: 0 20px;
+    }
+    
+    .filters-scroll {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .filters-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .filter-btn {
+      flex-shrink: 0;
+      padding: 16px 14px;
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink60);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    .filter-btn::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 14px;
+      right: 14px;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform .25s ease;
+    }
+    
+    .filter-btn.active {
+      color: var(--ink);
+      font-weight: 500;
+    }
+    
+    .filter-btn.active::after {
+      transform: scaleX(1);
+    }
+    
+    .filters-count {
+      display: none;
+    }
+    
+    /* ════════════════════════════════
+       ROOMS LIST
+    ════════════════════════════════ */
+    .rooms-section {
+      padding: 24px 0 60px;
+    }
+    
+    .rooms-header {
+      padding: 0 20px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .rooms-count {
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink30);
+    }
+    
+    .rooms-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 0 20px;
+    }
+    
+    .room-card {
+      display: block;
+      background: var(--ink);
+      border-radius: 6px;
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--cream);
+    }
+    
+    .room-card-image {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .room-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .8;
+    }
+    
+    .room-card-num {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 9px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(25,22,20,.6);
+      backdrop-filter: blur(8px);
+      padding: 5px 10px;
+      border-radius: 2px;
+    }
+    
+    .room-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(25,22,20,.85) 0%, transparent 50%);
+    }
+    
+    .room-card-body {
+      padding: 20px;
+    }
+    
+    .room-card-concept {
+      font-size: 9px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    
+    .room-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      line-height: 1;
+    }
+    
+    .room-card-desc {
+      margin-top: 10px;
+      font-size: 13px;
+      color: rgba(244,239,230,.6);
+      line-height: 1.6;
+    }
+    
+    .room-card-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+    
+    .room-card-feature {
+      padding: 4px 10px;
+      font-size: 9px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border: 1px solid rgba(244,239,230,.2);
+      border-radius: 2px;
+      color: rgba(244,239,230,.5);
+    }
+    
+    .room-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(244,239,230,.1);
+    }
+    
+    .room-card-price {
+      font-size: 11px;
+      color: rgba(244,239,230,.4);
+    }
+    
+    .room-card-price strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 300;
+      color: var(--cream);
+    }
+    
+    .room-card-book {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      background: var(--gold);
+      color: var(--ink);
+      border-radius: 2px;
+    }
+    
+    /* Empty state */
+    .rooms-empty {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+    }
+    
+    .rooms-empty.visible {
+      display: block;
+    }
+    
+    .rooms-empty-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--ink30);
+    }
+    
+    .rooms-empty-sub {
+      margin-top: 8px;
+      font-size: 14px;
+      color: var(--ink30);
+    }
+    
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body data-header-subtitle="Rooms" data-header-cta-text="Book now" data-header-cta-href="../booking.html">
+  <div id="siteHeader"></div>
+  
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-gradient"></div>
+    
+    <div class="hero-content">
+      <div class="hero-label">
+        <span class="gold-line"></span>
+        <span>Concept rooms</span>
+      </div>
+      
+      <h1 class="hero-title">Our <em>rooms.</em></h1>
+      
+      <p class="hero-desc">
+        Each room is a different atmosphere — choose the concept that matches your mood.
+      </p>
+      
+      <a href="../booking.html" class="hero-book">
+        Book a room
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+  
+  <!-- FILTERS -->
+  <div class="filters">
+    <div class="filters-scroll">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="romantic">Romantic</button>
+      <button class="filter-btn" data-filter="sky">Sky</button>
+      <button class="filter-btn" data-filter="cinema">Cinema</button>
+      <button class="filter-btn" data-filter="nature">Nature</button>
+      <button class="filter-btn" data-filter="minimal">Minimal</button>
+    </div>
+  </div>
+  
+  <!-- ROOMS -->
+  <section class="rooms-section">
+    <div class="rooms-header">
+      <span class="rooms-count" id="roomsCount">5 rooms</span>
+    </div>
+    
+    <div class="rooms-list" id="roomsList">
+      <!-- Populated by JS -->
+    </div>
+    
+    <div class="rooms-empty" id="roomsEmpty">
+      <div class="rooms-empty-title">No rooms found</div>
+      <div class="rooms-empty-sub">Try a different filter.</div>
+    </div>
+  </section>
+  
+  <!-- FOOTER -->
+  <div id="siteFooter"></div>
+  
+  <script src="../assets/js/headerMobile.js"></script>
+  <script src="../assets/js/footerMobile.js"></script>
+  <script>
+    const ROOMS = [
+      {
+        id: "romantic",
+        num: "01",
+        concept: "romantic",
+        name: "Romantic",
+        desc: "Warm amber light, layered soft textiles, and a curated selection of scents. Designed for intimate evenings.",
+        features: ["King bed", "Bath", "Mood lighting", "Balcony"],
+        price: "990",
+        img: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=70"
+      },
+      {
+        id: "sky",
+        num: "02",
+        concept: "sky",
+        name: "Sky",
+        desc: "An airy, cloud-like space drenched in pale blues and soft whites. Open layout with diffused natural light.",
+        features: ["Queen bed", "Skylight", "Open bath", "City view"],
+        price: "890",
+        img: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=70"
+      },
+      {
+        id: "cinema",
+        num: "03",
+        concept: "cinema",
+        name: "Cinema",
+        desc: "A velvet-lined cocoon built for film nights. Projector wall, bespoke audio, and deep cushions.",
+        features: ["Projector", "Surround sound", "Queen bed", "Mini bar"],
+        price: "1,090",
+        img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=70"
+      },
+      {
+        id: "nature",
+        num: "04",
+        concept: "nature",
+        name: "Nature",
+        desc: "Raw timber, living moss walls, botanical prints and earth tones. A room that brings the outside in.",
+        features: ["King bed", "Moss wall", "Soaking tub", "Garden view"],
+        price: "940",
+        img: "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=800&q=70"
+      },
+      {
+        id: "minimal",
+        num: "05",
+        concept: "minimal",
+        name: "Minimal",
+        desc: "Nothing extra. Concrete, oak, linen. The design recedes so you can think clearly.",
+        features: ["Queen bed", "Concrete walls", "Rain shower", "Writing desk"],
+        price: "850",
+        img: "https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=800&q=70"
+      }
+    ];
+    
+    let currentFilter = "all";
+    
+    function filteredRooms() {
+      return currentFilter === "all" ? ROOMS : ROOMS.filter(r => r.concept === currentFilter);
+    }
+    
+    function renderRoomCard(room, index) {
+      const card = document.createElement("a");
+      card.href = `roomDetailMobile.html?id=${room.id}`;
+      card.className = "room-card fade-in";
+      card.style.transitionDelay = `${index * 0.08}s`;
+      
+      card.innerHTML = `
+        <div class="room-card-image">
+          <img src="${room.img}" alt="${room.name} room" loading="lazy">
+          <span class="room-card-num">${room.num}</span>
+          <div class="room-card-overlay"></div>
+        </div>
+        <div class="room-card-body">
+          <div class="room-card-concept">Concept — ${room.concept}</div>
+          <div class="room-card-name">${room.name}</div>
+          <p class="room-card-desc">${room.desc}</p>
+          <div class="room-card-features">
+            ${room.features.map(f => `<span class="room-card-feature">${f}</span>`).join('')}
+          </div>
+          <div class="room-card-footer">
+            <div class="room-card-price"><strong>${room.price}k</strong> VND / night</div>
+            <div class="room-card-book">
+              Book
+              <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 4h10M8 1l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      return card;
+    }
+    
+    function render() {
+      const rooms = filteredRooms();
+      const list = document.getElementById("roomsList");
+      const empty = document.getElementById("roomsEmpty");
+      const count = document.getElementById("roomsCount");
+      
+      list.innerHTML = "";
+      
+      count.textContent = `${rooms.length} ${rooms.length === 1 ? 'room' : 'rooms'}`;
+      
+      if (rooms.length === 0) {
+        empty.classList.add("visible");
+        return;
+      }
+      
+      empty.classList.remove("visible");
+      
+      rooms.forEach((room, i) => {
+        const card = renderRoomCard(room, i);
+        list.appendChild(card);
+      });
+      
+      // Trigger fade-in
+      requestAnimationFrame(() => {
+        document.querySelectorAll(".fade-in").forEach(el => {
+          observer.observe(el);
+        });
+      });
+    }
+    
+    // Filter buttons
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentFilter = btn.dataset.filter;
+        render();
+      });
+    });
+    
+    // IntersectionObserver for animations
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add("visible");
+      });
+    }, { threshold: 0.1 });
+    
+    // URL filter param
+    const urlFilter = new URLSearchParams(location.search).get("concept");
+    if (urlFilter) {
+      const btn = document.querySelector(`[data-filter="${urlFilter}"]`);
+      if (btn) {
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentFilter = urlFilter;
+      }
+    }
+    
+    render();
+  </script>
+</body>
+</html>

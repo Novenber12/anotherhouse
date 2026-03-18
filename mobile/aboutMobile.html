@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>About — Another House</title>
+  <meta name="description" content="About Another House: a creative homestay with unique themed rooms.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --cream: #F4EFE6;
+      --parchment: #EDE5D8;
+      --ink: #191614;
+      --ink60: rgba(25,22,20,.6);
+      --ink30: rgba(25,22,20,.3);
+      --ink10: rgba(25,22,20,.1);
+      --gold: #C4944A;
+      --olive: #5A6545;
+      --white: #FDFAF6;
+    }
+    
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100dvh;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: .02;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px;
+    }
+    
+    .gold-line {
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+    
+    /* ════════════════════════════════
+       HERO
+    ════════════════════════════════ */
+    .hero {
+      background: var(--ink);
+      padding-top: 60px;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .hero-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      height: 35vh;
+      min-height: 200px;
+    }
+    
+    .hero-image {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .7;
+    }
+    
+    .hero-image-caption {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      font-size: 8px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(244,239,230,.5);
+      background: rgba(25,22,20,.5);
+      backdrop-filter: blur(6px);
+      padding: 4px 8px;
+      border-radius: 2px;
+    }
+    
+    .hero-content {
+      flex: 1;
+      padding: 32px 20px 40px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .hero-eyebrow span {
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px;
+      font-weight: 300;
+      line-height: .95;
+      color: var(--cream);
+    }
+    
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    
+    .hero-desc {
+      margin-top: 20px;
+      font-size: 14px;
+      color: rgba(244,239,230,.55);
+      line-height: 1.7;
+    }
+    
+    .hero-stats {
+      margin-top: auto;
+      padding-top: 24px;
+      border-top: 1px solid rgba(244,239,230,.1);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    
+    .hero-stat {
+      text-align: center;
+    }
+    
+    .hero-stat-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--cream);
+    }
+    
+    .hero-stat-label {
+      font-size: 8px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(244,239,230,.35);
+      margin-top: 2px;
+    }
+    
+    /* ════════════════════════════════
+       MANIFESTO
+    ════════════════════════════════ */
+    .manifesto {
+      padding: 60px 20px;
+    }
+    
+    .manifesto-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .manifesto-label span {
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    
+    .manifesto-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 80px;
+      font-weight: 300;
+      color: var(--ink10);
+      line-height: .9;
+      margin-bottom: 16px;
+    }
+    
+    .manifesto-pull {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      line-height: 1.1;
+    }
+    
+    .manifesto-pull em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    
+    .manifesto-text {
+      margin-top: 20px;
+      font-size: 14px;
+      color: var(--ink60);
+      line-height: 1.8;
+    }
+    
+    .manifesto-text p + p {
+      margin-top: 16px;
+    }
+    
+    /* ════════════════════════════════
+       PILLARS
+    ════════════════════════════════ */
+    .pillars {
+      padding: 60px 20px;
+      background: var(--parchment);
+    }
+    
+    .pillars-header {
+      margin-bottom: 32px;
+    }
+    
+    .pillars-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .pillars-label span {
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    
+    .pillars-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      line-height: 1.1;
+    }
+    
+    .pillars-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    
+    .pillars-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .pillar-card {
+      background: var(--white);
+      border: 1px solid var(--ink10);
+      padding: 24px;
+      border-radius: 4px;
+    }
+    
+    .pillar-card-num {
+      font-size: 9px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    
+    .pillar-card-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--ink10);
+      border-radius: 2px;
+      color: var(--ink30);
+      margin-bottom: 16px;
+    }
+    
+    .pillar-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+    
+    .pillar-card-desc {
+      font-size: 13px;
+      color: var(--ink60);
+      line-height: 1.7;
+    }
+    
+    /* ════════════════════════════════
+       SPACE
+    ════════════════════════════════ */
+    .space {
+      background: var(--ink);
+    }
+    
+    .space-image {
+      height: 50vw;
+      min-height: 200px;
+      max-height: 300px;
+      overflow: hidden;
+    }
+    
+    .space-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .7;
+    }
+    
+    .space-content {
+      padding: 40px 20px;
+    }
+    
+    .space-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .space-label span {
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    
+    .space-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 1.0;
+      color: var(--cream);
+    }
+    
+    .space-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    
+    .space-body {
+      margin-top: 16px;
+      font-size: 14px;
+      color: rgba(244,239,230,.55);
+      line-height: 1.75;
+    }
+    
+    .space-amenities {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    
+    .space-amenity {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: rgba(244,239,230,.5);
+    }
+    
+    .space-amenity-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    
+    .space-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    
+    .space-gallery-item {
+      aspect-ratio: 1;
+      overflow: hidden;
+    }
+    
+    .space-gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .7;
+    }
+    
+    /* ════════════════════════════════
+       CTA
+    ════════════════════════════════ */
+    .cta {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    
+    .cta-label {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .cta-label span {
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 1.0;
+    }
+    
+    .cta-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    
+    .cta-body {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--ink60);
+      line-height: 1.7;
+    }
+    
+    .cta-actions {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 24px;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--cream);
+      background: var(--ink);
+      text-decoration: none;
+      border-radius: 2px;
+    }
+    
+    .btn-primary:active {
+      background: var(--olive);
+    }
+    
+    .btn-ghost {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 24px;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink60);
+      text-decoration: none;
+      border: 1px solid var(--ink10);
+      border-radius: 2px;
+    }
+    
+    .btn-ghost:active {
+      background: var(--parchment);
+    }
+    
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body data-header-subtitle="About" data-header-cta-text="Book now" data-header-cta-href="../booking.html">
+  <div id="siteHeader"></div>
+  
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-images">
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=600&q=70" alt="Interior" loading="lazy">
+        <span class="hero-image-caption">Minimal concept</span>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=70" alt="Details" loading="lazy">
+        <span class="hero-image-caption">Material focus</span>
+      </div>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="gold-line"></span>
+        <span>Our story</span>
+      </div>
+      
+      <h1 class="hero-title">
+        A home where every room is a <em>world.</em>
+      </h1>
+      
+      <p class="hero-desc">
+        Another House was built around one idea: your stay should feel curated. Not only comfortable — but designed with a mood, a narrative, a reason to return.
+      </p>
+      
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-value">5</div>
+          <div class="hero-stat-label">Rooms</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">5</div>
+          <div class="hero-stat-label">Concepts</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value" style="font-style:italic;">Calm</div>
+          <div class="hero-stat-label">Mood</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">5.0</div>
+          <div class="hero-stat-label">Rating</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- MANIFESTO -->
+  <section class="manifesto fade-in">
+    <div class="manifesto-label">
+      <span class="gold-line"></span>
+      <span>Philosophy</span>
+    </div>
+    
+    <div class="manifesto-num">01</div>
+    
+    <h2 class="manifesto-pull">
+      People remember <em>feelings,</em> not floor plans.
+    </h2>
+    
+    <div class="manifesto-text">
+      <p>We design each room with a single clear atmosphere — then remove anything that doesn't serve that mood. The result is a space that feels intentional.</p>
+      <p>We care about materials, light, and quiet details — the kind you notice slowly. The texture of a linen pillow. The way afternoon light moves across concrete.</p>
+      <p>Another House is not trying to be everything. It is trying to be exactly one thing, done very well.</p>
+    </div>
+  </section>
+  
+  <!-- PILLARS -->
+  <section class="pillars fade-in">
+    <div class="pillars-header">
+      <div class="pillars-label">
+        <span class="gold-line"></span>
+        <span>Why we're different</span>
+      </div>
+      <h2 class="pillars-title">What we <em>believe</em> in designing for.</h2>
+    </div>
+    
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-card-num">01</div>
+        <div class="pillar-card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="pillar-card-name">Concept-led design</div>
+        <p class="pillar-card-desc">Each room begins with a feeling, not a furniture list. We define the emotional core first.</p>
+      </div>
+      
+      <div class="pillar-card">
+        <div class="pillar-card-num">02</div>
+        <div class="pillar-card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <circle cx="12" cy="12" r="5"/><path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12"/>
+          </svg>
+        </div>
+        <div class="pillar-card-name">Minimal luxury</div>
+        <p class="pillar-card-desc">Not minimalism as emptiness — but restraint as a form of respect for every detail.</p>
+      </div>
+      
+      <div class="pillar-card">
+        <div class="pillar-card-num">03</div>
+        <div class="pillar-card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+          </svg>
+        </div>
+        <div class="pillar-card-name">Composed for light</div>
+        <p class="pillar-card-desc">Natural light is the first material we work with. Every corner is framed like a photograph.</p>
+      </div>
+      
+      <div class="pillar-card">
+        <div class="pillar-card-num">04</div>
+        <div class="pillar-card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <div class="pillar-card-name">Comfort-first</div>
+        <p class="pillar-card-desc">We obsess over sleep quality, acoustics, temperature. Beauty that doesn't perform is just decoration.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- SPACE -->
+  <section class="space fade-in">
+    <div class="space-image">
+      <img src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?auto=format&fit=crop&w=800&q=70" alt="Space" loading="lazy">
+    </div>
+    
+    <div class="space-content">
+      <div class="space-label">
+        <span class="gold-line"></span>
+        <span>The space</span>
+      </div>
+      
+      <h2 class="space-title">Designed to slow you <em>down.</em></h2>
+      
+      <p class="space-body">
+        Beyond the concepts, every space is calibrated for rest. We think carefully about acoustics, temperature, and the small rituals of a good stay.
+      </p>
+      
+      <div class="space-amenities">
+        <div class="space-amenity"><span class="space-amenity-dot"></span>Premium linens</div>
+        <div class="space-amenity"><span class="space-amenity-dot"></span>Filtered air</div>
+        <div class="space-amenity"><span class="space-amenity-dot"></span>Acoustic walls</div>
+        <div class="space-amenity"><span class="space-amenity-dot"></span>Rain shower</div>
+        <div class="space-amenity"><span class="space-amenity-dot"></span>Soft lighting</div>
+        <div class="space-amenity"><span class="space-amenity-dot"></span>Fast Wi-Fi</div>
+      </div>
+    </div>
+    
+    <div class="space-gallery">
+      <div class="space-gallery-item">
+        <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=400&q=60" alt="Nature room" loading="lazy">
+      </div>
+      <div class="space-gallery-item">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=400&q=60" alt="Sky room" loading="lazy">
+      </div>
+      <div class="space-gallery-item">
+        <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=400&q=60" alt="Romantic room" loading="lazy">
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA -->
+  <section class="cta fade-in">
+    <div class="cta-label">
+      <span class="gold-line"></span>
+      <span>Find your mood</span>
+    </div>
+    
+    <h2 class="cta-title">Choose a <em>concept.</em></h2>
+    
+    <p class="cta-body">
+      Explore the rooms and pick the atmosphere that matches how you want to feel.
+    </p>
+    
+    <div class="cta-actions">
+      <a href="../rooms.html" class="btn-primary">
+        Explore rooms
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="../booking.html" class="btn-ghost">Book now</a>
+    </div>
+  </section>
+  
+  <!-- FOOTER -->
+  <div id="siteFooter"></div>
+  
+  <script src="../assets/js/headerMobile.js"></script>
+  <script src="../assets/js/footerMobile.js"></script>
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

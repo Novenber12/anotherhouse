@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact — Another House</title>
+    <meta name="description" content="Contact Another House: phone, email, social, and map." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <script src="assets/js/tailwind-theme.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:     #F4EFE6;
+      --parchment: #EDE5D8;
+      --ink:       #191614;
+      --ink60:     rgba(25,22,20,.6);
+      --ink30:     rgba(25,22,20,.3);
+      --ink10:     rgba(25,22,20,.1);
+      --gold:      #C4944A;
+      --olive:     #5A6545;
+      --white:     #FDFAF6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 999; pointer-events: none;
+      opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px;
+    }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+    @media (max-width: 767px) { .container { padding: 0 20px; } }
+    .gold-line { display: inline-block; width: 32px; height: 1px; background: var(--gold); vertical-align: middle; margin-right: 12px; }
+
+    /* ── HEADER ── */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 40px; height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(244,239,230,.85);
+      backdrop-filter: blur(20px) saturate(160%);
+      border-bottom: 1px solid var(--ink10);
+    }
+    @media (max-width: 767px) { .site-header { padding: 0 20px; } }
+    .header-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+    .header-brand-mark { width: 36px; height: 36px; border-radius: 8px; background: var(--ink); display: flex; align-items: center; justify-content: center; }
+    .header-brand-mark span { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: var(--cream); letter-spacing: .05em; }
+    .header-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: .04em; }
+    .header-nav { display: flex; align-items: center; gap: 2px; }
+    .header-nav a { padding: 6px 14px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink60); text-decoration: none; transition: color .2s; }
+    .header-nav a:hover, .header-nav a.active { color: var(--ink); }
+    .header-cta { display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; color: var(--cream); background: var(--ink); text-decoration: none; border-radius: 2px; transition: background .3s; }
+    .header-cta:hover { background: var(--olive); }
+    @media (max-width: 767px) { .header-nav { display: none; } }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding-top: 72px;
+      background: var(--ink);
+      position: relative; overflow: hidden;
+    }
+
+    .page-hero-bg {
+      position: absolute; inset: 0;
+      background-image: url("https://images.unsplash.com/photo-1564078516393-cf04bd966897?auto=format&fit=crop&w=2000&q=60");
+      background-size: cover; background-position: center;
+      opacity: .1;
+    }
+
+    /* large decorative letter */
+    .page-hero-deco {
+      position: absolute; right: -40px; bottom: -60px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 400px; font-weight: 300; line-height: 1;
+      color: rgba(255,255,255,.025); pointer-events: none; user-select: none;
+    }
+
+    .page-hero-inner {
+      position: relative; z-index: 2;
+      padding: 100px 40px 88px;
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: end;
+    }
+    @media (max-width: 900px) { .page-hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 72px 20px 64px; } }
+
+    .page-hero-label { display: flex; align-items: center; margin-bottom: 24px; }
+    .page-hero-label span { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+
+    .page-hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(64px, 9vw, 120px);
+      font-weight: 300; line-height: .92; letter-spacing: -.025em;
+      color: var(--cream);
+    }
+    .page-hero-title em { font-style: italic; color: var(--gold); }
+
+    .page-hero-right {
+      padding-bottom: 8px;
+    }
+    .page-hero-desc { font-size: 15px; color: rgba(244,239,230,.5); line-height: 1.8; max-width: 360px; margin-bottom: 32px; }
+
+    /* Hours block */
+    .hours-block {
+      border-top: 1px solid rgba(244,239,230,.1);
+      padding-top: 28px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    .hours-item-label { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: rgba(244,239,230,.3); margin-bottom: 6px; }
+    .hours-item-value { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: var(--cream); }
+
+    /* ── MAIN CONTENT ── */
+    .contact-main {
+      padding: 0 0 120px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 2px;
+      align-items: start;
+    }
+    @media (max-width: 1024px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    /* ── MAP ── */
+    .map-wrap {
+      position: relative;
+      height: 520px;
+      overflow: hidden;
+      background: #1a1a1a;
+    }
+    @media (max-width: 767px) { .map-wrap { height: 360px; } }
+
+    .map-wrap iframe {
+      width: 100%; height: 100%;
+      border: none; display: block;
+      filter: grayscale(100%) contrast(1.1) brightness(.85);
+      transition: filter .5s;
+    }
+    .map-wrap:hover iframe { filter: grayscale(60%) contrast(1.05) brightness(.95); }
+
+    .map-overlay-badge {
+      position: absolute; top: 24px; left: 24px;
+      background: rgba(25,22,20,.85);
+      backdrop-filter: blur(12px);
+      padding: 14px 18px;
+      border: 1px solid rgba(244,239,230,.1);
+    }
+    .map-badge-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; color: var(--cream); margin-bottom: 4px; }
+    .map-badge-addr { font-size: 11px; letter-spacing: .08em; color: rgba(244,239,230,.45); line-height: 1.5; }
+
+    .map-note { padding: 14px 20px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink30); background: var(--parchment); border-top: 1px solid var(--ink10); }
+
+    /* Address strip below map */
+    .address-strip {
+      display: flex; gap: 0;
+      border-top: 1px solid var(--ink10);
+    }
+    .address-cell {
+      flex: 1; padding: 28px 32px;
+      border-right: 1px solid var(--ink10);
+    }
+    .address-cell:last-child { border-right: none; }
+    @media (max-width: 600px) { .address-strip { flex-direction: column; } .address-cell { border-right: none; border-bottom: 1px solid var(--ink10); } }
+
+    .address-cell-label { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink30); margin-bottom: 8px; }
+    .address-cell-value { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; line-height: 1.3; }
+
+    /* ── SIDE PANEL ── */
+    .side-panel {
+      display: flex; flex-direction: column;
+      background: var(--white);
+      border: 1px solid var(--ink10);
+      border-left: none;
+    }
+    @media (max-width: 1024px) { .side-panel { border-left: 1px solid var(--ink10); border-top: none; } }
+
+    /* Contact rows */
+    .contact-rows { padding: 40px; border-bottom: 1px solid var(--ink10); }
+
+    .contact-rows-label { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink30); margin-bottom: 28px; }
+
+    .contact-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--ink10);
+      gap: 16px;
+    }
+    .contact-row:last-child { border-bottom: none; }
+
+    .contact-row-left { display: flex; align-items: center; gap: 14px; }
+    .contact-row-icon {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--ink10);
+      border-radius: 2px;
+      color: var(--ink30);
+      flex-shrink: 0;
+    }
+    .contact-row-type { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink30); }
+
+    .contact-row-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px; font-weight: 300;
+      color: var(--ink); text-decoration: none;
+      transition: color .2s;
+    }
+    .contact-row-value:hover { color: var(--gold); }
+
+    .contact-row-arrow {
+      width: 20px; height: 1px; background: var(--ink10);
+      position: relative; transition: width .3s, background .3s; flex-shrink: 0;
+    }
+    .contact-row-arrow::after {
+      content: ''; position: absolute; right: 0; top: -3px;
+      width: 6px; height: 6px;
+      border-right: 1px solid currentColor; border-top: 1px solid currentColor;
+      transform: rotate(45deg); color: var(--ink10);
+    }
+    .contact-row:hover .contact-row-arrow { width: 28px; background: var(--gold); }
+    .contact-row:hover .contact-row-arrow::after { color: var(--gold); }
+
+    /* CTA card */
+    .side-cta {
+      background: var(--ink);
+      padding: 40px;
+      flex: 1;
+      position: relative; overflow: hidden;
+    }
+
+    .side-cta-deco {
+      position: absolute; bottom: -40px; right: -20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 160px; font-weight: 300; line-height: 1;
+      color: rgba(255,255,255,.03); pointer-events: none;
+    }
+
+    .side-cta-label { display: flex; align-items: center; margin-bottom: 20px; }
+    .side-cta-label span { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+
+    .side-cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px; font-weight: 300; line-height: 1.05;
+      color: var(--cream); margin-bottom: 16px;
+    }
+    .side-cta-title em { font-style: italic; color: var(--gold); }
+
+    .side-cta-body { font-size: 13px; color: rgba(244,239,230,.45); line-height: 1.75; margin-bottom: 32px; }
+
+    .side-cta-buttons { display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 1; }
+
+    .btn-gold {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 13px 20px;
+      font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 500;
+      color: var(--ink); background: var(--gold);
+      text-decoration: none; border-radius: 2px;
+      transition: background .3s;
+    }
+    .btn-gold:hover { background: var(--gold-lt, #D4AA6A); }
+
+    .btn-ghost-dark {
+      display: flex; align-items: center; justify-content: center;
+      padding: 13px 20px;
+      font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 400;
+      color: rgba(244,239,230,.45);
+      border: 1px solid rgba(244,239,230,.15);
+      text-decoration: none; border-radius: 2px;
+      transition: color .3s, border-color .3s;
+    }
+    .btn-ghost-dark:hover { color: var(--cream); border-color: rgba(244,239,230,.4); }
+
+    /* ── DIVIDER STRIP ── */
+    .strip {
+      background: var(--ink);
+      padding: 20px 40px;
+      display: flex; align-items: center; gap: 0;
+      overflow: hidden;
+    }
+    @media (max-width: 767px) { .strip { padding: 20px; } }
+
+    .strip-items {
+      display: flex; gap: 40px; flex-wrap: wrap;
+    }
+    .strip-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(244,239,230,.35);
+    }
+    .strip-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    .footer { background: var(--ink); color: var(--cream); padding: 64px 0 40px; border-top: 1px solid rgba(244,239,230,.06); }
+    .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
+    @media (max-width: 700px) { .footer-inner { grid-template-columns: 1fr; gap: 36px; } }
+    .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300; letter-spacing: .04em; margin-bottom: 12px; }
+    .footer-brand-desc { font-size: 13px; color: rgba(244,239,230,.4); line-height: 1.7; max-width: 260px; }
+    .footer-col-title { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(244,239,230,.3); margin-bottom: 20px; }
+    .footer-links { display: flex; flex-direction: column; gap: 12px; }
+    .footer-link { font-size: 14px; color: rgba(244,239,230,.55); text-decoration: none; transition: color .2s; }
+    .footer-link:hover { color: var(--gold); }
+    .footer-bottom { margin-top: 56px; padding-top: 24px; border-top: 1px solid rgba(244,239,230,.06); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 11px; letter-spacing: .1em; color: rgba(244,239,230,.2); text-transform: uppercase; }
+
+    /* ── ANIMATIONS ── */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    </style>
+  </head>
+  <body
+    class="font-sans bg-cream text-ink"
+    data-header-subtitle="Contact"
+    data-header-cta-text="Book now"
+    data-header-cta-href="booking.html"
+  >
+    <div id="siteHeader"></div>
+
+ <!-- PAGE HERO -->
+ <section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-deco">C</div>
+  <div class="page-hero-inner">
+    <div class="page-hero-left">
+      <div class="page-hero-label">
+        <span class="gold-line"></span>
+        <span>Get in touch</span>
+      </div>
+      <h1 class="page-hero-title">
+        Say<br/><em>hello.</em>
+      </h1>
+    </div>
+    <div class="page-hero-right">
+      <p class="page-hero-desc">
+        Reach us for availability, special requests, group bookings, or just to ask which room suits your mood.
+      </p>
+      <div class="hours-block">
+        <div>
+          <div class="hours-item-label">Check-in</div>
+          <div class="hours-item-value" style="font-family:'Cormorant Garamond',serif;font-weight:300;">2:00 PM</div>
+        </div>
+        <div>
+          <div class="hours-item-label">Check-out</div>
+          <div class="hours-item-value" style="font-family:'Cormorant Garamond',serif;font-weight:300;">12:00 PM</div>
+        </div>
+        <div>
+          <div class="hours-item-label">Response time</div>
+          <div class="hours-item-value" style="font-family:'Cormorant Garamond',serif;font-weight:300;">Within 2 hrs</div>
+        </div>
+        <div>
+          <div class="hours-item-label">Languages</div>
+          <div class="hours-item-value" style="font-family:'Cormorant Garamond',serif;font-weight:300;">VI · EN</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTACT CONTENT -->
+<section class="contact-main">
+  <div class="contact-grid" style="max-width:1280px;margin:0 auto;">
+
+    <!-- Left: Map + address -->
+    <div class="fade-up">
+      <div class="map-wrap">
+        <iframe
+          title="Another House location"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Ho+Chi+Minh+City,+Vietnam&output=embed"
+        ></iframe>
+        <div class="map-overlay-badge">
+          <div class="map-badge-name">Another House</div>
+          <div class="map-badge-addr">Ho Chi Minh City, Vietnam<br/>Your exact address here</div>
+        </div>
+      </div>
+
+      <div class="map-note">Map is a placeholder embed — replace with exact address</div>
+
+      <div class="address-strip">
+        <div class="address-cell">
+          <div class="address-cell-label">Address</div>
+          <div class="address-cell-value" style="font-family:'Cormorant Garamond',serif;font-weight:300;">Ho Chi Minh City<br/>Vietnam</div>
+        </div>
+        <div class="address-cell">
+          <div class="address-cell-label">District</div>
+          <div class="address-cell-value" style="font-family:'Cormorant Garamond',serif;font-weight:300;">To be updated</div>
+        </div>
+        <div class="address-cell">
+          <div class="address-cell-label">Nearest landmark</div>
+          <div class="address-cell-value" style="font-family:'Cormorant Garamond',serif;font-weight:300;">City Centre</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Side panel -->
+    <div class="side-panel fade-up" style="transition-delay:.15s">
+
+      <!-- Contact rows -->
+      <div class="contact-rows">
+        <div class="contact-rows-label">Contact details</div>
+
+        <div class="contact-row">
+          <div class="contact-row-left">
+            <div class="contact-row-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.7 16.18z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-row-type">Phone</div>
+              <a href="tel:+84000000000" class="contact-row-value">+84 000 000 000</a>
+            </div>
+          </div>
+          <div class="contact-row-arrow"></div>
+        </div>
+
+        <div class="contact-row">
+          <div class="contact-row-left">
+            <div class="contact-row-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-row-type">Email</div>
+              <a href="mailto:hello@anotherhouse.stay" class="contact-row-value">hello@anotherhouse.stay</a>
+            </div>
+          </div>
+          <div class="contact-row-arrow"></div>
+        </div>
+
+        <div class="contact-row">
+          <div class="contact-row-left">
+            <div class="contact-row-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-row-type">Instagram</div>
+              <a href="#" class="contact-row-value">@anotherhouse</a>
+            </div>
+          </div>
+          <div class="contact-row-arrow"></div>
+        </div>
+
+        <div class="contact-row">
+          <div class="contact-row-left">
+            <div class="contact-row-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-row-type">Facebook</div>
+              <a href="#" class="contact-row-value">Another House</a>
+            </div>
+          </div>
+          <div class="contact-row-arrow"></div>
+        </div>
+
+      </div>
+
+      <!-- CTA -->
+      <div class="side-cta">
+        <div class="side-cta-deco">AH</div>
+        <div class="side-cta-label">
+          <span class="gold-line"></span>
+          <span>Plan your stay</span>
+        </div>
+        <h2 class="side-cta-title">
+          Tell us your<br/><em>mood.</em>
+        </h2>
+        <p class="side-cta-body">
+          Romantic, sky, cinema, nature, or minimal — share the feeling you're after and we'll match you with the right room concept.
+        </p>
+        <div class="side-cta-buttons">
+          <a href="rooms.html" class="btn-gold">
+            Explore rooms
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+              <path d="M1 5h12M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="booking.html" class="btn-ghost-dark">Book now</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- INFO STRIP -->
+<div class="strip">
+  <div class="strip-items">
+    <div class="strip-item"><span class="strip-dot"></span>Check-in from 2:00 PM</div>
+    <div class="strip-item"><span class="strip-dot"></span>Check-out by 12:00 PM</div>
+    <div class="strip-item"><span class="strip-dot"></span>Early check-in on request</div>
+    <div class="strip-item"><span class="strip-dot"></span>Late check-out on request</div>
+    <div class="strip-item"><span class="strip-dot"></span>No smoking</div>
+    <div class="strip-item"><span class="strip-dot"></span>Pets welcome</div>
+  </div>
+</div>
+    <div id="siteFooter"></div>
+    <script>
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
+      }, { threshold: 0.08 });
+      document.querySelectorAll(".fade-up").forEach(el => observer.observe(el));
+    </script>
+    <script src="../assets/js/header.js"></script>
+    <script src="../assets/js/footer.js"></script>
+  </body>
+</html>
+

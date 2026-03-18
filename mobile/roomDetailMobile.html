@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Room Detail — Another House</title>
+  <meta name="description" content="Explore room details at Another House.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --cream: #F4EFE6;
+      --parchment: #EDE5D8;
+      --ink: #191614;
+      --ink60: rgba(25,22,20,.6);
+      --ink30: rgba(25,22,20,.3);
+      --ink10: rgba(25,22,20,.1);
+      --gold: #C4944A;
+      --olive: #5A6545;
+      --white: #FDFAF6;
+    }
+    
+    html { 
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+    
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100dvh;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: .02;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px;
+    }
+    
+    .container { padding: 0 20px; }
+    
+    .f-display {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      line-height: 1.0;
+    }
+    
+    .gold-line {
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+    
+    /* ════════════════════════════════
+       BREADCRUMB
+    ════════════════════════════════ */
+    .breadcrumb {
+      padding: 60px 20px 16px;
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink60);
+    }
+    
+    .breadcrumb a {
+      color: var(--ink60);
+      text-decoration: none;
+    }
+    
+    .breadcrumb-sep {
+      margin: 0 8px;
+      color: var(--ink30);
+    }
+    
+    /* ════════════════════════════════
+       GALLERY
+    ════════════════════════════════ */
+    .room-gallery {
+      position: relative;
+      margin-bottom: 24px;
+    }
+    
+    .gallery-main {
+      position: relative;
+      width: 100%;
+      height: 50vh;
+      min-height: 300px;
+      overflow: hidden;
+      background: var(--ink);
+    }
+    
+    .gallery-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .gallery-thumbs {
+      display: flex;
+      gap: 2px;
+      margin-top: 2px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    
+    .gallery-thumbs::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .gallery-thumb {
+      flex-shrink: 0;
+      width: 100px;
+      height: 100px;
+      position: relative;
+      overflow: hidden;
+      background: var(--ink);
+      cursor: pointer;
+    }
+    
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .8;
+      transition: opacity .3s;
+    }
+    
+    .gallery-thumb:active img {
+      opacity: 1;
+    }
+    
+    /* ════════════════════════════════
+       ROOM INFO
+    ════════════════════════════════ */
+    .room-info {
+      padding: 0 20px 32px;
+    }
+    
+    .room-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .room-label span {
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    
+    .room-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    
+    .room-number {
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ink60);
+      margin-bottom: 20px;
+    }
+    
+    .room-description {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--ink60);
+      margin-bottom: 32px;
+    }
+    
+    /* ════════════════════════════════
+       PRICING CARD
+    ════════════════════════════════ */
+    .room-pricing-card {
+      background: var(--white);
+      border: 1px solid var(--ink10);
+      padding: 24px;
+      margin-bottom: 32px;
+      border-radius: 4px;
+    }
+    
+    .room-price {
+      margin-bottom: 20px;
+    }
+    
+    .room-price-label {
+      font-size: 9px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink60);
+      margin-bottom: 6px;
+    }
+    
+    .room-price-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 300;
+      line-height: 1;
+    }
+    
+    .room-price-unit {
+      font-size: 12px;
+      color: var(--ink60);
+      font-weight: 300;
+      margin-left: 4px;
+    }
+    
+    .room-book-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 24px;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--cream);
+      background: var(--ink);
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background .3s;
+      margin-bottom: 20px;
+      -webkit-tap-highlight-color: transparent;
+      min-height: 48px;
+    }
+    
+    .room-book-btn:active {
+      background: var(--olive);
+    }
+    
+    /* ════════════════════════════════
+       FEATURES
+    ════════════════════════════════ */
+    .room-features {
+      margin-bottom: 32px;
+    }
+    
+    .room-features-title {
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ink60);
+      margin-bottom: 16px;
+    }
+    
+    .room-features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    
+    .room-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--ink10);
+    }
+    
+    .room-feature-icon {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+    
+    .room-feature-text {
+      font-size: 13px;
+      color: var(--ink60);
+    }
+    
+    /* ════════════════════════════════
+       AMENITIES
+    ════════════════════════════════ */
+    .room-amenities {
+      margin-bottom: 40px;
+    }
+    
+    .room-amenities-title {
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ink60);
+      margin-bottom: 16px;
+    }
+    
+    .room-amenities-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    
+    .room-amenity {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--ink60);
+    }
+    
+    .room-amenity::before {
+      content: '✓';
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--ink10);
+      border-radius: 2px;
+      color: var(--gold);
+      font-size: 10px;
+      flex-shrink: 0;
+    }
+    
+    /* ════════════════════════════════
+       RELATED ROOMS
+    ════════════════════════════════ */
+    .related-rooms {
+      padding: 40px 20px;
+      border-top: 1px solid var(--ink10);
+    }
+    
+    .related-rooms-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    
+    .related-rooms-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+    }
+    
+    .related-rooms-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink60);
+      text-decoration: none;
+    }
+    
+    .related-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .related-card {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      background: var(--ink);
+      border-radius: 4px;
+      text-decoration: none;
+      color: var(--cream);
+      display: block;
+    }
+    
+    .related-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .7;
+      transition: opacity .3s, transform .6s;
+    }
+    
+    .related-card:active .related-card-img {
+      opacity: .5;
+      transform: scale(1.02);
+    }
+    
+    .related-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(25,22,20,.9) 0%, rgba(25,22,20,.1) 60%);
+    }
+    
+    .related-card-body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+    }
+    
+    .related-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 300;
+      margin-bottom: 6px;
+    }
+    
+    .related-card-price {
+      font-size: 11px;
+      color: rgba(244,239,230,.6);
+    }
+    
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div id="siteHeader"></div>
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
+    <a href="../index.html">Home</a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="../rooms.html">Rooms</a>
+    <span class="breadcrumb-sep">/</span>
+    <span id="breadcrumbRoomName">Room</span>
+  </nav>
+
+  <!-- Gallery -->
+  <section class="room-gallery">
+    <div class="gallery-main">
+      <img id="galleryMain" src="" alt="Room main image" />
+    </div>
+    <div class="gallery-thumbs" id="galleryThumbs">
+      <!-- Thumbnails will be injected here -->
+    </div>
+  </section>
+
+  <!-- Room Info -->
+  <section class="room-info">
+    <div class="room-label">
+      <span class="gold-line"></span>
+      <span id="roomConcept">Concept</span>
+    </div>
+    <h1 class="room-title f-display" id="roomTitle">Room Name</h1>
+    <div class="room-number" id="roomNumber">Room 01</div>
+    <p class="room-description" id="roomDescription">Room description will be loaded here.</p>
+
+    <!-- Pricing Card -->
+    <div class="room-pricing-card">
+      <div class="room-price">
+        <div class="room-price-label">From</div>
+        <div class="room-price-value">
+          <span id="roomPrice">990</span><span class="room-price-unit">k VND / night</span>
+        </div>
+      </div>
+      <a href="../booking.html" class="room-book-btn" id="roomBookBtn">
+        Book this room
+        <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
+          <path d="M1 4.5h10M7 1l3.5 3.5L7 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Features -->
+    <div class="room-features">
+      <div class="room-features-title">Features</div>
+      <div class="room-features-grid" id="roomFeatures">
+        <!-- Features will be injected here -->
+      </div>
+    </div>
+
+    <!-- Amenities -->
+    <div class="room-amenities">
+      <div class="room-amenities-title">Amenities</div>
+      <div class="room-amenities-list" id="roomAmenities">
+        <!-- Amenities will be injected here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Rooms -->
+  <section class="related-rooms">
+    <div class="related-rooms-header">
+      <h2 class="related-rooms-title f-display">Other rooms</h2>
+      <a href="../rooms.html" class="related-rooms-link">
+        View all
+        <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
+          <path d="M1 4.5h10M7 1l3.5 3.5L7 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <div class="related-list" id="relatedRooms">
+      <!-- Related rooms will be injected here -->
+    </div>
+  </section>
+
+  <div id="siteFooter"></div>
+
+  <script src="../assets/js/headerMobile.js"></script>
+  <script src="../assets/js/footerMobile.js"></script>
+  
+  <script>
+    // Room data
+    const ROOMS = [
+      {
+        id: "romantic",
+        num: "01",
+        concept: "romantic",
+        name: "Romantic",
+        desc: "Warm amber light, layered soft textiles, and a curated selection of scents. Designed for intimate evenings and slow mornings together. This space invites you to slow down, to be present, to create moments that matter.",
+        features: [
+          { icon: "🛏️", text: "King bed" },
+          { icon: "🛁", text: "Deep tub" },
+          { icon: "💡", text: "Mood lighting" },
+          { icon: "🌿", text: "Balcony" },
+          { icon: "🕯️", text: "Scents" },
+          { icon: "📚", text: "Reading nook" }
+        ],
+        amenities: ["Free WiFi", "Air conditioning", "Minibar", "Room service", "Safe", "Hair dryer"],
+        price: "990",
+        img: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1200&q=70",
+        gallery: [
+          "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1200&q=70",
+          "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        id: "sky",
+        num: "02",
+        concept: "sky",
+        name: "Sky",
+        desc: "An airy, cloud-like space drenched in pale blues and soft whites. Open layout, diffused natural light, and a serene lightness that clears the mind. This room feels like floating—weightless, unburdened, free.",
+        features: [
+          { icon: "🛏️", text: "Queen bed" },
+          { icon: "☀️", text: "Skylight" },
+          { icon: "🚿", text: "Open bath" },
+          { icon: "🏙️", text: "City view" },
+          { icon: "🌬️", text: "Ventilation" },
+          { icon: "🪟", text: "Full windows" }
+        ],
+        amenities: ["Free WiFi", "Air conditioning", "Minibar", "Room service", "Safe", "Hair dryer"],
+        price: "890",
+        img: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=70",
+        gallery: [
+          "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=70",
+          "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        id: "cinema",
+        num: "03",
+        concept: "cinema",
+        name: "Cinema",
+        desc: "A velvet-lined cocoon built for film nights. Projector wall, bespoke audio, deep cushions, and a curated movie library to disappear into. This is where stories come alive, where you can lose yourself in another world.",
+        features: [
+          { icon: "🎬", text: "4K Projector" },
+          { icon: "🔊", text: "Surround sound" },
+          { icon: "🛏️", text: "Queen bed" },
+          { icon: "🍷", text: "Mini bar" },
+          { icon: "📽️", text: "Film library" },
+          { icon: "🛋️", text: "Reclining seats" }
+        ],
+        amenities: ["Free WiFi", "Air conditioning", "Minibar", "Room service", "Safe", "Hair dryer"],
+        price: "1,090",
+        img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=70",
+        gallery: [
+          "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=70",
+          "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        id: "nature",
+        num: "04",
+        concept: "nature",
+        name: "Nature",
+        desc: "Raw timber, living moss walls, botanical prints and earth tones. A room that brings the outside in—grounding, still, and deeply calm. Here, you reconnect with the earth, with yourself.",
+        features: [
+          { icon: "🛏️", text: "King bed" },
+          { icon: "🌿", text: "Moss wall" },
+          { icon: "🛁", text: "Soaking tub" },
+          { icon: "🌳", text: "Garden view" },
+          { icon: "🪵", text: "Timber finishes" },
+          { icon: "🌱", text: "Botanical decor" }
+        ],
+        amenities: ["Free WiFi", "Air conditioning", "Minibar", "Room service", "Safe", "Hair dryer"],
+        price: "940",
+        img: "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1200&q=70",
+        gallery: [
+          "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1200&q=70",
+          "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        id: "minimal",
+        num: "05",
+        concept: "minimal",
+        name: "Minimal",
+        desc: "Nothing extra. Concrete, oak, linen. The design recedes so you can think clearly. Every object has a reason; everything else has been removed. This is space to breathe, to focus, to be.",
+        features: [
+          { icon: "🛏️", text: "Queen bed" },
+          { icon: "🧱", text: "Concrete walls" },
+          { icon: "🚿", text: "Rain shower" },
+          { icon: "✍️", text: "Writing desk" },
+          { icon: "🪵", text: "Oak finishes" },
+          { icon: "🧺", text: "Linen textiles" }
+        ],
+        amenities: ["Free WiFi", "Air conditioning", "Minibar", "Room service", "Safe", "Hair dryer"],
+        price: "850",
+        img: "https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=1200&q=70",
+        gallery: [
+          "https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=1200&q=70",
+          "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=70"
+        ]
+      }
+    ];
+
+    // Get room ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const roomId = urlParams.get('id') || urlParams.get('room') || 'romantic';
+
+    // Find room data
+    const currentRoom = ROOMS.find(r => r.id === roomId) || ROOMS[0];
+    const otherRooms = ROOMS.filter(r => r.id !== roomId).slice(0, 3);
+
+    // Render room details
+    function renderRoom() {
+      // Update page title
+      document.title = `${currentRoom.name} — Another House`;
+
+      // Breadcrumb
+      document.getElementById('breadcrumbRoomName').textContent = currentRoom.name;
+
+      // Concept label
+      document.getElementById('roomConcept').textContent = currentRoom.concept;
+
+      // Title
+      document.getElementById('roomTitle').textContent = currentRoom.name;
+
+      // Number
+      document.getElementById('roomNumber').textContent = `Room ${currentRoom.num}`;
+
+      // Description
+      document.getElementById('roomDescription').textContent = currentRoom.desc;
+
+      // Price
+      document.getElementById('roomPrice').textContent = currentRoom.price;
+
+      // Booking button
+      const bookBtn = document.getElementById('roomBookBtn');
+      bookBtn.href = `../booking.html?room=${currentRoom.id}`;
+
+      // Features
+      const featuresContainer = document.getElementById('roomFeatures');
+      featuresContainer.innerHTML = currentRoom.features.map(f => `
+        <div class="room-feature-item">
+          <div class="room-feature-icon">${f.icon}</div>
+          <div class="room-feature-text">${f.text}</div>
+        </div>
+      `).join('');
+
+      // Amenities
+      const amenitiesContainer = document.getElementById('roomAmenities');
+      amenitiesContainer.innerHTML = currentRoom.amenities.map(a => `
+        <div class="room-amenity">${a}</div>
+      `).join('');
+
+      // Gallery
+      document.getElementById('galleryMain').src = currentRoom.gallery[0];
+      document.getElementById('galleryMain').alt = `${currentRoom.name} room`;
+
+      // Gallery thumbnails
+      const thumbsContainer = document.getElementById('galleryThumbs');
+      thumbsContainer.innerHTML = currentRoom.gallery.slice(1).map((img, index) => `
+        <div class="gallery-thumb" data-index="${index + 1}">
+          <img src="${img}" alt="${currentRoom.name} room ${index + 2}" />
+        </div>
+      `).join('');
+
+      // Gallery thumb click handlers
+      document.querySelectorAll('.gallery-thumb').forEach((thumb, index) => {
+        thumb.addEventListener('click', () => {
+          const mainImg = document.getElementById('galleryMain');
+          const thumbImg = thumb.querySelector('img');
+          if (thumbImg && thumbImg.src) {
+            const temp = mainImg.src;
+            mainImg.src = thumbImg.src;
+            thumbImg.src = temp;
+          }
+        });
+      });
+
+      // Related rooms
+      const relatedContainer = document.getElementById('relatedRooms');
+      relatedContainer.innerHTML = otherRooms.map(room => `
+        <a href="roomDetailMobile.html?id=${room.id}" class="related-card fade-in">
+          <img class="related-card-img" src="${room.img}" alt="${room.name} room" loading="lazy"/>
+          <div class="related-card-overlay"></div>
+          <div class="related-card-body">
+            <div class="related-card-name">${room.name}</div>
+            <div class="related-card-price">From ${room.price}k VND / night</div>
+          </div>
+        </a>
+      `).join('');
+
+      // Trigger animations
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.fade-in').forEach(el => {
+          observer.observe(el);
+        });
+      });
+    }
+
+    // IntersectionObserver for animations
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+
+    renderRoom();
+  </script>
+</body>
+</html>
