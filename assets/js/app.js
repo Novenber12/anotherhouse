@@ -208,7 +208,7 @@ function roomDetailInit() {
 
   const bookLinks = $all("[data-book-room]");
   bookLinks.forEach((a) => {
-    const url = new URL(a.getAttribute("href") || "booking.html", location.href);
+    const url = new URL(a.getAttribute("href") || "bookingDesktop.html", location.href);
     url.searchParams.set("room", room.id);
     a.setAttribute("href", url.pathname + "?" + url.searchParams.toString());
   });

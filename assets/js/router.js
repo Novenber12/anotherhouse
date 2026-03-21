@@ -12,7 +12,9 @@
     'rooms': { desktop: 'desktop/roomsDesktop.html', mobile: 'mobile/roomsMobile.html' },
     'booking': { desktop: 'desktop/bookingDesktop.html', mobile: 'mobile/bookingMobile.html' },
     'contact': { desktop: 'desktop/contactDesktop.html', mobile: 'mobile/contactMobile.html' },
-    'roomDetail': { desktop: 'desktop/roomDetailDesktop.html', mobile: 'mobile/roomDetailMobile.html' }
+    'roomDetail': { desktop: 'desktop/roomDetailDesktop.html', mobile: 'mobile/roomDetailMobile.html' },
+    'news': { desktop: 'desktop/newsDesktop.html', mobile: 'mobile/newsMobile.html' },
+    'newDetail': { desktop: 'desktop/newDetailDesktop.html', mobile: 'mobile/newDetailMobile.html' }
   };
 
   function getCurrentPage() {

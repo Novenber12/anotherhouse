@@ -518,6 +518,7 @@
             <a href="rooms.html" class="ah-nav-link ${isActive('../assets/mobile/roomsMobile.html') ? 'is-current' : ''}">Rooms</a>
             <a href="about.html" class="ah-nav-link ${isActive('../assets/mobile/aboutMobile.html') ? 'is-current' : ''}">About</a>
             <a href="contact.html" class="ah-nav-link ${isActive('../assets/mobile/contactMobile.html') ? 'is-current' : ''}">Contact</a>
+            <a href="news.html" class="ah-nav-link ${isActive('../assets/mobile/newsMobile.html') ? 'is-current' : ''}">News</a>
           </nav>
 
           <!-- Desktop CTA (hidden on mobile) -->
@@ -579,6 +580,10 @@
                 </a>
                 <a href="../mobile/contactMobile.html" class="ah-drawer-link ${isActive('../mobile/contactMobile.html') ? 'is-current' : ''}">
               Contact
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="../mobile/newsMobile.html" class="ah-drawer-link ${isActive('../mobile/newsMobile.html') ? 'is-current' : ''}">
+              News
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>

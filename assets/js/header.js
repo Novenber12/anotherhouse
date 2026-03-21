@@ -4,7 +4,7 @@
 // Optional per-page customization via <body> attributes:
 // - data-header-subtitle="About"
 // - data-header-cta-text="Book now"
-// - data-header-cta-href="booking.html"
+// - data-header-cta-href="bookingDesktop.html"
 
 (function () {
     const STYLES = `
@@ -433,6 +433,7 @@
               <a data-navlink="1" href="../desktop/roomsDesktop.html"   class="ah-nav-link">Rooms</a>
               <a data-navlink="1" href="../desktop/aboutDesktop.html"   class="ah-nav-link">About</a>
               <a data-navlink="1" href="../desktop/contactDesktop.html" class="ah-nav-link">Contact</a>
+              <a data-navlink="1" href="../desktop/newsDesktop.html" class="ah-nav-link">News</a>
             </nav>
   
             <!-- Desktop CTA -->

@@ -1,0 +1,1128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Article — Another House</title>
+    <meta name="description" content="Stories, notes, and stay guides from Another House." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="../assets/js/tailwind-theme.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:     #F4EFE6;
+      --parchment: #EDE5D8;
+      --ink:       #191614;
+      --ink60:     rgba(25,22,20,.6);
+      --ink30:     rgba(25,22,20,.3);
+      --ink10:     rgba(25,22,20,.1);
+      --gold:      #C4944A;
+      --olive:     #5A6545;
+      --white:     #FDFAF6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      pointer-events: none;
+      opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    @media (max-width: 980px) { .container { padding: 0 20px; } }
+
+    .gold-line { display: inline-block; width: 32px; height: 1px; background: var(--gold); vertical-align: middle; margin-right: 12px; }
+    .f-display { font-family: 'Cormorant Garamond', serif; font-weight: 300; }
+    .f-italic { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; }
+    .f-label { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; font-weight: 400; }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb {
+      padding-top: 88px;
+      padding-bottom: 20px;
+    }
+    .breadcrumb-inner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink60);
+    }
+    .breadcrumb a {
+      color: var(--ink60);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .breadcrumb a:hover { color: var(--ink); }
+    .breadcrumb-sep { color: var(--ink30); }
+
+    /* ── Article Header ── */
+    .article-header {
+      padding: 24px 0 48px;
+    }
+
+    .article-meta-top {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .article-category {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--ink10);
+      background: rgba(253,250,246,.55);
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink60);
+    }
+    .article-category-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .article-read-time {
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink30);
+    }
+
+    .article-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(42px, 5vw, 72px);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -.02em;
+      margin-bottom: 20px;
+      max-width: 900px;
+    }
+    .article-title em {
+      font-style: italic;
+      color: var(--olive);
+    }
+
+    .article-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink60);
+      line-height: 1.4;
+      max-width: 700px;
+      margin-bottom: 32px;
+    }
+
+    .article-author-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid var(--ink10);
+    }
+
+    .article-author-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--parchment);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .article-author-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .article-author-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .article-author-name {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink);
+    }
+    .article-author-date {
+      font-size: 11px;
+      letter-spacing: .08em;
+      color: var(--ink30);
+    }
+
+    .article-share {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .article-share-label {
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink30);
+    }
+    .article-share-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--ink10);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--ink30);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .article-share-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── Hero Image ── */
+    .article-hero {
+      margin-bottom: 64px;
+    }
+    .article-hero-img {
+      width: 100%;
+      aspect-ratio: 16 / 8;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .article-hero-caption {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--ink30);
+      text-align: center;
+      letter-spacing: .06em;
+    }
+
+    /* ── Article Content ── */
+    .article-content-wrap {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 80px;
+      padding-bottom: 80px;
+    }
+    @media (max-width: 1024px) {
+      .article-content-wrap {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+    }
+
+    .article-body {
+      max-width: 680px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.9;
+      color: var(--ink60);
+      margin-bottom: 28px;
+    }
+    .article-body p:first-of-type::first-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 72px;
+      font-weight: 300;
+      float: left;
+      line-height: .75;
+      margin-right: 12px;
+      margin-top: 8px;
+      color: var(--gold);
+    }
+    .article-body h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-top: 48px;
+      margin-bottom: 20px;
+    }
+    .article-body h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink);
+      margin-top: 36px;
+      margin-bottom: 16px;
+    }
+    .article-body blockquote {
+      margin: 40px 0;
+      padding: 32px 40px;
+      background: var(--parchment);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+    }
+    .article-body blockquote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--ink);
+      margin-bottom: 0;
+    }
+    .article-body blockquote p::first-letter {
+      font-size: inherit;
+      float: none;
+      margin: 0;
+      color: inherit;
+    }
+    .article-body ul, .article-body ol {
+      margin: 24px 0;
+      padding-left: 24px;
+    }
+    .article-body li {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--ink60);
+      margin-bottom: 8px;
+    }
+    .article-body a {
+      color: var(--gold);
+      text-decoration: underline;
+      text-decoration-color: rgba(196,148,74,.4);
+      text-underline-offset: 3px;
+      transition: text-decoration-color .2s;
+    }
+    .article-body a:hover {
+      text-decoration-color: var(--gold);
+    }
+
+    .article-body img {
+      width: 100%;
+      border-radius: 6px;
+      margin: 32px 0;
+    }
+
+    /* ── Sidebar ── */
+    .article-sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+    @media (max-width: 1024px) {
+      .article-sidebar { position: static; }
+    }
+
+    .sidebar-card {
+      background: var(--white);
+      border: 1px solid var(--ink10);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .sidebar-title {
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ink60);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sidebar-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--ink10);
+    }
+
+    .sidebar-room {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .sidebar-room-item {
+      display: flex;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+      transition: opacity .2s;
+    }
+    .sidebar-room-item:hover { opacity: .75; }
+    .sidebar-room-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 6px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .sidebar-room-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .sidebar-room-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+    .sidebar-room-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 300;
+    }
+    .sidebar-room-price {
+      font-size: 12px;
+      color: var(--ink30);
+    }
+
+    .sidebar-news {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .sidebar-news-item {
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--ink10);
+      text-decoration: none;
+      color: inherit;
+      transition: opacity .2s;
+    }
+    .sidebar-news-item:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .sidebar-news-item:hover { opacity: .75; }
+    .sidebar-news-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+    .sidebar-news-meta {
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink30);
+    }
+
+    .sidebar-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .sidebar-tag {
+      padding: 8px 12px;
+      border: 1px solid var(--ink10);
+      border-radius: 999px;
+      font-size: 11px;
+      color: var(--ink60);
+      text-decoration: none;
+      transition: all .2s;
+    }
+    .sidebar-tag:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── Related Articles ── */
+    .related-articles {
+      padding: 64px 0 80px;
+      border-top: 1px solid var(--ink10);
+    }
+
+    .related-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    .related-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 300;
+    }
+
+    .related-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink60);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .related-link:hover { color: var(--ink); }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 980px) { .related-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .related-grid { grid-template-columns: 1fr; } }
+
+    .related-card {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: opacity .2s;
+    }
+    .related-card:hover { opacity: .8; }
+
+    .related-card-img {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      background: var(--parchment);
+    }
+    .related-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+    .related-card:hover .related-card-img img { transform: scale(1.05); }
+
+    .related-card-category {
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .related-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .related-card-meta {
+      font-size: 11px;
+      color: var(--ink30);
+      letter-spacing: .08em;
+    }
+
+    /* ── Animations ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    </style>
+  </head>
+
+  <body
+    data-header-subtitle="News"
+    data-header-cta-text="Book now"
+    data-header-cta-href="bookingDesktop.html"
+  >
+    <div id="siteHeader"></div>
+
+    <main>
+      <div class="container">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb">
+          <div class="breadcrumb-inner">
+            <a href="indexDesktop.html">Home</a>
+            <span class="breadcrumb-sep">/</span>
+            <a href="newsDesktop.html">News</a>
+            <span class="breadcrumb-sep">/</span>
+            <span id="articleBreadcrumb">Article</span>
+          </div>
+        </nav>
+
+        <!-- Article Header -->
+        <header class="article-header fade-up">
+          <div class="article-meta-top">
+            <span class="article-category">
+              <span class="article-category-dot"></span>
+              <span id="articleCategory">Stay guide</span>
+            </span>
+            <span class="article-read-time" id="articleReadTime">5 min read</span>
+          </div>
+
+          <h1 class="article-title f-display" id="articleTitle">
+            A slower way to <em>arrive.</em>
+          </h1>
+
+          <p class="article-subtitle" id="articleSubtitle">
+            A gentle checklist for check-in day: timing, light, and the first 10 minutes that set the mood.
+          </p>
+
+          <div class="article-author-row">
+            <div class="article-author-avatar">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=70" alt="Author" />
+            </div>
+            <div class="article-author-info">
+              <span class="article-author-name" id="articleAuthor">Another House</span>
+              <span class="article-author-date" id="articleDate">March 2026</span>
+            </div>
+
+            <div class="article-share">
+              <span class="article-share-label">Share</span>
+              <button class="article-share-btn" aria-label="Share on Twitter">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/>
+                </svg>
+              </button>
+              <button class="article-share-btn" aria-label="Share on Facebook">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                </svg>
+              </button>
+              <button class="article-share-btn" aria-label="Copy link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </header>
+      </div>
+
+      <!-- Hero Image -->
+      <section class="article-hero fade-up">
+        <div class="container">
+          <img
+            id="articleHeroImg"
+            class="article-hero-img"
+            src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?auto=format&fit=crop&w=1600&q=70"
+            alt="Article hero image"
+          />
+          <p class="article-hero-caption" id="articleHeroCaption">Photography by Another House</p>
+        </div>
+      </section>
+
+      <!-- Article Content -->
+      <div class="container">
+        <div class="article-content-wrap">
+          <article class="article-body fade-up" id="articleBody">
+            <p>There is a particular quality to arrivals that sets the tone for everything that follows. At Another House, we have learned that the first ten minutes matter more than the first hour. Here is what we have found works.</p>
+
+            <h2>The art of unhurried arrival</h2>
+            <p>When you step through our doors, we ask that you do not rush. Leave your schedule at the threshold. The rooms are designed for a slower kind of living — not to be consumed in a single evening, but to be savoured, piece by piece, like a long letter from someone who took their time writing it.</p>
+
+            <blockquote>
+              <p>"The room should feel like a gentle exhale — the moment you stop performing and start being."</p>
+            </blockquote>
+
+            <p>Start with the light. Notice how it moves through the space at different hours. In the morning, it arrives soft and lateral. By afternoon, it pools in unexpected corners. In the evening, it retreats slowly, leaving traces of amber on the walls before the lamps take over.</p>
+
+            <h2>A practical checklist</h2>
+            <p>Before you do anything else:</p>
+            <ul>
+              <li>Set down your bags and leave them by the door — they can wait.</li>
+              <li>Open the windows. Let the outside in for ten minutes.</li>
+              <li>Choose your first surface: a chair, the bed, the floor. Sit with the room before you fill it with activity.</li>
+              <li>Notice three things: a texture, a sound, a scent.</li>
+              <li>Make one small decision: where will you have your first cup of something?</li>
+            </ul>
+
+            <h3>The first ritual</h3>
+            <p>We leave a small selection of teas and a kettle in every room. This is intentional. The ritual of boiling water, of waiting, of holding something warm — it is a punctuation mark between the world you left and the world you are entering.</p>
+
+            <p>Take your time with it. The room is not going anywhere. Neither, for now, are you.</p>
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="article-sidebar fade-up">
+            <!-- Related Rooms -->
+            <div class="sidebar-card">
+              <div class="sidebar-title">Explore rooms</div>
+              <div class="sidebar-room" id="sidebarRooms">
+                <a href="roomDetailDesktop.html?id=romantic" class="sidebar-room-item">
+                  <div class="sidebar-room-img">
+                    <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=200&q=70" alt="Romantic room" />
+                  </div>
+                  <div class="sidebar-room-info">
+                    <span class="sidebar-room-name">Romantic</span>
+                    <span class="sidebar-room-price">From 990k VND</span>
+                  </div>
+                </a>
+                <a href="roomDetailDesktop.html?id=sky" class="sidebar-room-item">
+                  <div class="sidebar-room-img">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=200&q=70" alt="Sky room" />
+                  </div>
+                  <div class="sidebar-room-info">
+                    <span class="sidebar-room-name">Sky</span>
+                    <span class="sidebar-room-price">From 890k VND</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <!-- Related Articles -->
+            <div class="sidebar-card">
+              <div class="sidebar-title">More reading</div>
+              <div class="sidebar-news" id="sidebarNews">
+                <a href="#" class="sidebar-news-item" data-article-link="cinema-night">
+                  <div class="sidebar-news-title">Cinema room night routine</div>
+                  <div class="sidebar-news-meta">Rooms · 4 min read</div>
+                </a>
+                <a href="#" class="sidebar-news-item" data-article-link="morning-light">
+                  <div class="sidebar-news-title">Morning light, minimal noise</div>
+                  <div class="sidebar-news-meta">Stay guide · 3 min read</div>
+                </a>
+              </div>
+            </div>
+
+            <!-- Tags -->
+            <div class="sidebar-card">
+              <div class="sidebar-title">Tags</div>
+              <div class="sidebar-tags" id="sidebarTags">
+                <a href="#" class="sidebar-tag">Stay guide</a>
+                <a href="#" class="sidebar-tag">Arrival</a>
+                <a href="#" class="sidebar-tag">Rituals</a>
+                <a href="#" class="sidebar-tag">Slow living</a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <!-- Related Articles -->
+      <section class="related-articles">
+        <div class="container">
+          <div class="related-header">
+            <h2 class="related-title f-display">Continue reading</h2>
+            <a href="newsDesktop.html" class="related-link">
+              All articles
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+                <path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="related-grid" id="relatedArticles">
+            <a href="#" class="related-card fade-up" data-article-link="choose-your-mood" style="transition-delay:0s">
+              <div class="related-card-img">
+                <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=70" alt="Article image" loading="lazy" />
+              </div>
+              <div class="related-card-category">Rooms</div>
+              <div class="related-card-title">Choose your mood: Romantic, Sky, Cinema…</div>
+              <div class="related-card-meta">6 min read · Mar 2026</div>
+            </a>
+
+            <a href="#" class="related-card fade-up" data-article-link="cinema-night" style="transition-delay:0.1s">
+              <div class="related-card-img">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=70" alt="Article image" loading="lazy" />
+              </div>
+              <div class="related-card-category">Rooms</div>
+              <div class="related-card-title">Cinema room night routine</div>
+              <div class="related-card-meta">4 min read · Feb 2026</div>
+            </a>
+
+            <a href="#" class="related-card fade-up" data-article-link="local-cafe-walk" style="transition-delay:0.2s">
+              <div class="related-card-img">
+                <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&w=800&q=70" alt="Article image" loading="lazy" />
+              </div>
+              <div class="related-card-category">Local tips</div>
+              <div class="related-card-title">A short walk to coffee</div>
+              <div class="related-card-meta">4 min read · Jan 2026</div>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="siteFooter"></div>
+
+    <script>
+      // Article data - same structure as newsDesktop.html posts
+      const ARTICLES = [
+        {
+          id: "arrive-slower",
+          title: "A slower way to arrive",
+          titleEmphasis: "arrive",
+          subtitle: "A gentle checklist for check-in day: timing, light, and the first 10 minutes that set the mood.",
+          category: "Stay guide",
+          date: "March 2026",
+          author: "Another House",
+          readMins: 5,
+          img: "https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?auto=format&fit=crop&w=1600&q=70",
+          caption: "Photography by Another House",
+          content: `
+            <p>There is a particular quality to arrivals that sets the tone for everything that follows. At Another House, we have learned that the first ten minutes matter more than the first hour. Here is what we have found works.</p>
+
+            <h2>The art of unhurried arrival</h2>
+            <p>When you step through our doors, we ask that you do not rush. Leave your schedule at the threshold. The rooms are designed for a slower kind of living — not to be consumed in a single evening, but to be savoured, piece by piece, like a long letter from someone who took their time writing it.</p>
+
+            <blockquote>
+              <p>"The room should feel like a gentle exhale — the moment you stop performing and start being."</p>
+            </blockquote>
+
+            <p>Start with the light. Notice how it moves through the space at different hours. In the morning, it arrives soft and lateral. By afternoon, it pools in unexpected corners. In the evening, it retreats slowly, leaving traces of amber on the walls before the lamps take over.</p>
+
+            <h2>A practical checklist</h2>
+            <p>Before you do anything else:</p>
+            <ul>
+              <li>Set down your bags and leave them by the door — they can wait.</li>
+              <li>Open the windows. Let the outside in for ten minutes.</li>
+              <li>Choose your first surface: a chair, the bed, the floor. Sit with the room before you fill it with activity.</li>
+              <li>Notice three things: a texture, a sound, a scent.</li>
+              <li>Make one small decision: where will you have your first cup of something?</li>
+            </ul>
+
+            <h3>The first ritual</h3>
+            <p>We leave a small selection of teas and a kettle in every room. This is intentional. The ritual of boiling water, of waiting, of holding something warm — it is a punctuation mark between the world you left and the world you are entering.</p>
+
+            <p>Take your time with it. The room is not going anywhere. Neither, for now, are you.</p>
+          `,
+          tags: ["Stay guide", "Arrival", "Rituals", "Slow living"]
+        },
+        {
+          id: "choose-your-mood",
+          title: "Choose your mood: Romantic, Sky, Cinema…",
+          titleEmphasis: "mood",
+          subtitle: "Not sure which concept fits you? Here's a fast guide to picking the room that matches your weekend energy.",
+          category: "Rooms",
+          date: "March 2026",
+          author: "Another House",
+          readMins: 6,
+          img: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1600&q=70",
+          caption: "Each room, a different world",
+          content: `
+            <p>Every room at Another House begins with a single question: how do you want to feel? The answer shapes everything — the materials, the light, the objects left on surfaces, the silence between sounds.</p>
+
+            <h2>The five concepts</h2>
+            <p>We offer five distinct concepts, each one a different answer to that question.</p>
+
+            <blockquote>
+              <p>"There is no best room. There is only the room that matches this particular you, at this particular moment."</p>
+            </blockquote>
+
+            <p><strong>Romantic</strong> is for evenings. Warm amber light, layered textiles, a curated selection of scents. It is designed for intimacy — for conversations that go deeper after midnight, for slow mornings that feel like a gift.</p>
+            <p><strong>Sky</strong> is for mornings. Pale blues, diffused light, open space. It feels like waking up above the clouds — weightless, unburdened, free.</p>
+            <p><strong>Cinema</strong> is for losing yourself. A velvet cocoon with a projector, surround sound, and a curated library of films. This is where stories come alive.</p>
+            <p><strong>Nature</strong> is for grounding. Raw timber, moss walls, botanical prints. It brings the outside in — still, calm, deeply connected to the earth.</p>
+            <p><strong>Minimal</strong> is for thinking. Concrete, oak, linen. Nothing extra. Space to breathe, to focus, to be exactly what you need.</p>
+
+            <h3>How to choose</h3>
+            <p>Ask yourself: what is this stay for? A celebration? A retreat? A project? A rest? The answer will point you toward the room that is waiting for you.</p>
+          `,
+          tags: ["Rooms", "Concepts", "Guide", "Booking"]
+        },
+        {
+          id: "cinema-night",
+          title: "Cinema room night routine",
+          titleEmphasis: "Cinema",
+          subtitle: "A simple setup for projector nights: dim layers, snacks, and a sound check that feels like a private screening.",
+          category: "Rooms",
+          date: "February 2026",
+          author: "Another House",
+          readMins: 4,
+          img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1600&q=70",
+          caption: "Film nights at Another House",
+          content: `
+            <p>There is something irreplaceable about a film watched on a large screen, in the dark, with good sound. Streaming on a phone or a laptop is convenient. This is something else entirely.</p>
+
+            <h2>The setup</h2>
+            <p>The Cinema room is already configured — projector ceiling-mounted, speakers positioned, library curated. But the ritual of setting up your screening matters.</p>
+
+            <ul>
+              <li>Lower the blackout shades fully. The darker the room, the better the image.</li>
+              <li>Set the lighting to warm amber at 20%. Just enough to find your snack.</li>
+              <li>Check the sound: press play on the opening credits, then pause. Adjust the volume until it fills the room without strain.</li>
+              <li>Choose your film. The library is handwritten — we have organised it by mood, not genre.</li>
+            </ul>
+
+            <blockquote>
+              <p>"A good film in the right room is not watching a film. It is living inside one."</p>
+            </blockquote>
+
+            <h3>The snacks</h3>
+            <p>We leave a small selection by the minibar: good chocolate, mixed nuts, dried fruit. Nothing processed. Film nights deserve better than a packet of chips.</p>
+
+            <p>When the credits roll, leave the lights off for a moment. Let the room return slowly. This is the part that most people forget.</p>
+          `,
+          tags: ["Rooms", "Cinema", "Evening rituals", "Guide"]
+        },
+        {
+          id: "morning-light",
+          title: "Morning light, minimal noise",
+          titleEmphasis: "Morning",
+          subtitle: "How we tune the space for quiet mornings: soft light, calm surfaces, and a few slow rituals.",
+          category: "Stay guide",
+          date: "February 2026",
+          author: "Another House",
+          readMins: 3,
+          img: "https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=1600&q=70",
+          caption: "Quiet mornings at Another House",
+          content: `
+            <p>The worst thing about most hotel mornings is the noise: the alarm, the urgency, the race to check-out. We have designed against this.</p>
+
+            <h2>The first hour</h2>
+            <p>At Another House, mornings are designed to be slow. The curtains open gradually — not to blinding sunlight, but to soft, lateral light that arrives without announcement.</p>
+
+            <p>The surfaces are calm. No bright whites, no chrome, no anything that demands attention. The materials absorb light gently: linen, oak, matte plaster. The eye rests here.</p>
+
+            <blockquote>
+              <p>"Morning quiet is not the absence of sound. It is the presence of the right sounds — birdsong, wind, the occasional neighbour."</p>
+            </blockquote>
+
+            <h3>A suggested morning</h3>
+            <ul>
+              <li>Wake without an alarm. The light will do this gently.</li>
+              <li>Do not reach for your phone. Leave it on the table.</li>
+              <li>Make tea or coffee. Use the kettle. Wait.</li>
+              <li>Sit somewhere unexpected — the window seat, the floor, the balcony.</li>
+              <li>Wait ten minutes before deciding what to do next.</li>
+            </ul>
+
+            <p>The room will still be there in ten minutes. So will the day. But the morning, the quiet morning, will not.</p>
+          `,
+          tags: ["Stay guide", "Mornings", "Rituals", "Quiet"]
+        },
+        {
+          id: "local-cafe-walk",
+          title: "A short walk to coffee",
+          titleEmphasis: "coffee",
+          subtitle: "3 nearby places we love for a calm cup. Best times to go and what to order if you like it less sweet.",
+          category: "Local tips",
+          date: "January 2026",
+          author: "Another House",
+          readMins: 4,
+          img: "https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&w=1600&q=70",
+          caption: "Local coffee culture",
+          content: `
+            <p>The best mornings often begin off-site. We have mapped the three places within walking distance that we return to ourselves — not the tourist options, but the ones that locals love.</p>
+
+            <h2>The map</h2>
+            <p>All three are within 8 minutes on foot. We will show you on a paper map at check-in — something you can fold into your pocket and carry without looking at your phone.</p>
+
+            <h3>1. The Corner Store</h3>
+            <p>A converted shophouse with original tiles and one excellent espresso machine. Opens at 7am. Order: the flat white, or ask for a cortado if they have the milk for it. Best before 9am, when the queues begin.</p>
+
+            <h3>2. Greenhouse</h3>
+            <p>An indoor garden café with plants covering every surface. The cold brew is smooth, never bitter. If you prefer less sweet, ask for it without the house syrup — they will understand. Opens at 8am.</p>
+
+            <blockquote>
+              <p>"The best coffee is the one you drink slowly, in a place that feels like it was waiting for you."</p>
+            </blockquote>
+
+            <h3>3. The Rooftop</h3>
+            <p>On the third floor of an unmarked building. Take the stairs. The pour-over is prepared slowly, with care. Come for the view, stay for the conversation that follows. Opens at 9am, closes at 4pm.</p>
+          `,
+          tags: ["Local tips", "Coffee", "Neighbourhood", "Morning"]
+        },
+        {
+          id: "materials-story",
+          title: "Materials that feel honest",
+          titleEmphasis: "Materials",
+          subtitle: "Concrete, oak, linen — why we use fewer materials, and why the light matters more than decoration.",
+          category: "Behind the scenes",
+          date: "January 2026",
+          author: "Another House",
+          readMins: 7,
+          img: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1600&q=70",
+          caption: "Honest materials, quiet beauty",
+          content: `
+            <p>We use three primary materials: concrete, oak, and linen. Not because they are fashionable — they have been in use for centuries — but because they are honest. They do not pretend to be anything other than what they are.</p>
+
+            <h2>Why fewer is better</h2>
+            <p>A room full of different materials is a room full of competing demands on your attention. Each surface asks something of you. When there are too many, the room becomes exhausting without you understanding why.</p>
+
+            <p>We use concrete for its weight and its coolness. It grounds a space. Oak for its warmth and its grain — every board tells a story of years. Linen for its softness and its honesty; it creases, it softens with washing, it becomes more itself over time.</p>
+
+            <blockquote>
+              <p>"Honest materials age honestly. They do not try to hide their history. This is why they feel trusted."</p>
+            </blockquote>
+
+            <h2>The role of light</h2>
+            <p>Materials are only half the story. Light activates them. A concrete wall at noon is a different surface from the same wall at 4pm or at dusk. We design for this — not just for photographs taken at the best moment, but for every moment of every day.</p>
+
+            <p>When you check into a room, watch the walls for an hour. Notice how the materials change with the light. This is what we have designed for: not a static image, but a living space that moves with the sun.</p>
+          `,
+          tags: ["Behind the scenes", "Design", "Materials", "Philosophy"]
+        }
+      ];
+
+      // Get article ID from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const articleId = urlParams.get('id') || 'arrive-slower';
+
+      // Find article data
+      const currentArticle = ARTICLES.find(a => a.id === articleId) || ARTICLES[0];
+      const otherArticles = ARTICLES.filter(a => a.id !== articleId).slice(0, 3);
+
+      // Render article
+      function renderArticle() {
+        // Update page title
+        document.title = `${currentArticle.title} — Another House`;
+
+        // Breadcrumb
+        const breadcrumbEl = document.getElementById('articleBreadcrumb');
+        if (breadcrumbEl) breadcrumbEl.textContent = currentArticle.title;
+
+        // Category
+        const categoryEl = document.getElementById('articleCategory');
+        if (categoryEl) categoryEl.textContent = currentArticle.category;
+
+        // Read time
+        const readTimeEl = document.getElementById('articleReadTime');
+        if (readTimeEl) readTimeEl.textContent = `${currentArticle.readMins} min read`;
+
+        // Title with emphasis
+        const titleEl = document.getElementById('articleTitle');
+        if (titleEl) {
+          titleEl.innerHTML = currentArticle.title.replace(
+            currentArticle.titleEmphasis,
+            `<em>${currentArticle.titleEmphasis}</em>`
+          );
+        }
+
+        // Subtitle
+        const subtitleEl = document.getElementById('articleSubtitle');
+        if (subtitleEl) subtitleEl.textContent = currentArticle.subtitle;
+
+        // Author
+        const authorEl = document.getElementById('articleAuthor');
+        if (authorEl) authorEl.textContent = currentArticle.author;
+
+        // Date
+        const dateEl = document.getElementById('articleDate');
+        if (dateEl) dateEl.textContent = currentArticle.date;
+
+        // Hero image
+        const heroImgEl = document.getElementById('articleHeroImg');
+        if (heroImgEl) {
+          heroImgEl.src = currentArticle.img;
+          heroImgEl.alt = currentArticle.title;
+        }
+
+        // Hero caption
+        const heroCaptionEl = document.getElementById('articleHeroCaption');
+        if (heroCaptionEl) heroCaptionEl.textContent = currentArticle.caption;
+
+        // Body content
+        const bodyEl = document.getElementById('articleBody');
+        if (bodyEl) bodyEl.innerHTML = currentArticle.content;
+
+        // Tags
+        const tagsEl = document.getElementById('sidebarTags');
+        if (tagsEl) {
+          tagsEl.innerHTML = currentArticle.tags.map(tag =>
+            `<a href="newsDesktop.html" class="sidebar-tag">${tag}</a>`
+          ).join('');
+        }
+
+        // Related articles
+        const relatedEl = document.getElementById('relatedArticles');
+        if (relatedEl && otherArticles.length > 0) {
+          relatedEl.innerHTML = otherArticles.map((article, idx) => `
+            <a href="newDetailDesktop.html?id=${article.id}" class="related-card fade-up" style="transition-delay:${idx * 0.1}s">
+              <div class="related-card-img">
+                <img src="${article.img.replace('w=1600', 'w=800')}" alt="${article.title}" loading="lazy" />
+              </div>
+              <div class="related-card-category">${article.category}</div>
+              <div class="related-card-title">${article.title}</div>
+              <div class="related-card-meta">${article.readMins} min read · ${article.date}</div>
+            </a>
+          `).join('');
+        }
+
+        // Sidebar news links
+        document.querySelectorAll('.sidebar-news-item').forEach(item => {
+          const link = item.dataset.articleLink;
+          const linkedArticle = ARTICLES.find(a => a.id === link);
+          if (linkedArticle) {
+            item.href = `newDetailDesktop.html?id=${link}`;
+          }
+        });
+
+        // Trigger animations
+        requestAnimationFrame(() => {
+          const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+              if (e.isIntersecting) e.target.classList.add('visible');
+            });
+          }, { threshold: 0.08 });
+
+          document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        });
+      }
+
+      // Handle share buttons
+      document.addEventListener('click', (e) => {
+        const shareBtn = e.target.closest('.article-share-btn');
+        if (!shareBtn) return;
+
+        const label = shareBtn.getAttribute('aria-label').toLowerCase();
+        const url = window.location.href;
+        const title = currentArticle.title;
+
+        if (label.includes('twitter') || label.includes('x')) {
+          window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`, '_blank');
+        } else if (label.includes('facebook')) {
+          window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        } else if (label.includes('copy')) {
+          navigator.clipboard.writeText(url).then(() => {
+            shareBtn.style.borderColor = 'var(--gold)';
+            shareBtn.style.color = 'var(--gold)';
+            setTimeout(() => {
+              shareBtn.style.borderColor = '';
+              shareBtn.style.color = '';
+            }, 1500);
+          });
+        }
+      });
+
+      // Init
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderArticle);
+      } else {
+        renderArticle();
+      }
+    </script>
+
+    <script src="../assets/js/header.js"></script>
+    <script src="../assets/js/footer.js"></script>
+    <script src="../assets/js/chatbotAi.js"></script>
+  </body>
+</html>

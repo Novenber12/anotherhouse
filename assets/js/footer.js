@@ -227,7 +227,7 @@
             <div>
               <div class="ah-footer-col-title">Stay</div>
               <div class="ah-footer-links">
-                <a href="booking.html" class="ah-footer-link-highlight">
+                <a href="bookingDesktop.html" class="ah-footer-link-highlight">
                   Book a room
                   <svg width="12" height="9" viewBox="0 0 12 9" fill="none" aria-hidden="true">
                     <path d="M1 4.5h10M7 1l3.5 3.5L7 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>

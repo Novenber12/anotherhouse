@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News — Another House</title>
+    <meta name="description" content="Stories, notes, and stay guides from Another House." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+
+    <script src="../assets/js/tailwind-theme.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --cream: #F4EFE6;
+        --parchment: #EDE5D8;
+        --ink: #191614;
+        --ink60: rgba(25,22,20,.6);
+        --ink30: rgba(25,22,20,.3);
+        --ink10: rgba(25,22,20,.1);
+        --gold: #C4944A;
+        --olive: #5A6545;
+        --white: #FDFAF6;
+      }
+
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        font-weight: 300;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed; inset: 0; z-index: 999;
+        pointer-events: none;
+        opacity: .025;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-size: 180px;
+      }
+
+      .f-display { font-family: "Cormorant Garamond", serif; font-weight: 300; line-height: 1.0; }
+      .f-italic { font-family: "Cormorant Garamond", serif; font-weight: 300; font-style: italic; line-height: 1.05; }
+
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+      @media (max-width: 980px) { .container { padding: 0 20px; } }
+
+      .gold-line { display: inline-block; width: 32px; height: 1px; background: var(--gold); vertical-align: middle; margin-right: 12px; }
+
+      /* ── Page wrapper ── */
+      .page { padding-top: 92px; }
+
+      /* ── Hero ── */
+      .hero {
+        padding: 44px 0 20px;
+      }
+      .hero-top {
+        display: grid;
+        grid-template-columns: 1.15fr .85fr;
+        gap: 28px;
+        align-items: end;
+      }
+      @media (max-width: 980px) { .hero-top { grid-template-columns: 1fr; } }
+
+      .hero-label {
+        font-size: 10px;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        color: rgba(196,148,74,.95);
+        display: flex; align-items: center;
+        gap: 0;
+        margin-bottom: 12px;
+      }
+      .hero-title {
+        font-size: clamp(44px, 5vw, 74px);
+        letter-spacing: -0.02em;
+      }
+      .hero-title em { font-style: italic; color: var(--olive); }
+      .hero-sub {
+        color: var(--ink60);
+        font-size: 14px;
+        line-height: 1.8;
+        max-width: 52ch;
+        margin-top: 14px;
+      }
+
+      .hero-card {
+        border: 1px solid rgba(25,22,20,.12);
+        background: rgba(253,250,246,.50);
+        border-radius: 18px;
+        overflow: hidden;
+        position: relative;
+        min-height: 240px;
+      }
+      .hero-card-img {
+        position: absolute; inset: 0;
+        width: 100%; height: 100%;
+        object-fit: cover;
+        filter: saturate(.95) contrast(.98);
+        transform: scale(1.01);
+      }
+      .hero-card::after {
+        content: "";
+        position: absolute; inset: 0;
+        background: linear-gradient(180deg, rgba(25,22,20,.10) 0%, rgba(25,22,20,.70) 100%);
+      }
+      .hero-card-body {
+        position: relative;
+        z-index: 1;
+        padding: 18px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 10px;
+        color: var(--cream);
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 10px;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+        color: rgba(244,239,230,.88);
+      }
+      .badge-dot { width: 6px; height: 6px; border-radius: 999px; background: var(--gold); }
+      .hero-card-title {
+        font-size: 26px;
+        letter-spacing: -0.01em;
+      }
+      .hero-card-meta {
+        display: flex; gap: 12px; flex-wrap: wrap;
+        font-size: 12px;
+        color: rgba(244,239,230,.75);
+      }
+
+      /* ── Controls ── */
+      .controls {
+        margin-top: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .chips {
+        display: flex; flex-wrap: wrap; gap: 10px;
+      }
+      .chip {
+        border: 1px solid rgba(25,22,20,.12);
+        background: rgba(253,250,246,.55);
+        border-radius: 999px;
+        padding: 10px 12px;
+        font-size: 11px;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        color: rgba(25,22,20,.78);
+        cursor: pointer;
+        user-select: none;
+        transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      }
+      .chip:hover { transform: translateY(-1px); background: rgba(253,250,246,.8); }
+      .chip.is-active {
+        border-color: rgba(90,101,69,.40);
+        background: rgba(90,101,69,.10);
+        color: rgba(25,22,20,.92);
+      }
+
+      .search {
+        flex: 0 1 380px;
+        min-width: min(380px, 100%);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .search input {
+        width: 100%;
+        height: 44px;
+        border-radius: 14px;
+        border: 1px solid rgba(25,22,20,.12);
+        background: rgba(253,250,246,.55);
+        padding: 0 14px;
+        outline: none;
+        font-size: 13px;
+        color: var(--ink);
+      }
+      .search input::placeholder { color: rgba(25,22,20,.45); }
+      .search .count {
+        font-size: 11px;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        color: rgba(25,22,20,.55);
+        white-space: nowrap;
+      }
+
+      /* ── Grid ── */
+      .grid {
+        padding: 18px 0 64px;
+      }
+      .grid-inner {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 18px;
+      }
+
+      .card {
+        grid-column: span 4;
+        border: 1px solid rgba(25,22,20,.12);
+        border-radius: 18px;
+        overflow: hidden;
+        background: rgba(253,250,246,.50);
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+        transition: transform .18s ease, border-color .18s ease, background .18s ease;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(25,22,20,.20);
+        background: rgba(253,250,246,.72);
+      }
+
+      @media (max-width: 980px) { .card { grid-column: span 6; } }
+      @media (max-width: 640px) { .card { grid-column: span 12; } }
+
+      .card-media {
+        position: relative;
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+      }
+      .card-media img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        transform: scale(1.01);
+        transition: transform .4s ease;
+      }
+      .card:hover .card-media img { transform: scale(1.05); }
+
+      .tag {
+        position: absolute;
+        top: 12px; left: 12px;
+        display: inline-flex; align-items: center;
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(244,239,230,.25);
+        background: rgba(25,22,20,.55);
+        color: rgba(244,239,230,.92);
+        font-size: 10px;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+      }
+
+      .card-body {
+        padding: 14px 14px 16px;
+      }
+      .card-title {
+        font-size: 22px;
+        letter-spacing: -0.01em;
+      }
+      .card-title em { font-style: italic; color: var(--olive); }
+      .card-excerpt {
+        margin-top: 10px;
+        color: rgba(25,22,20,.62);
+        font-size: 13px;
+        line-height: 1.75;
+      }
+      .card-meta {
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        font-size: 11px;
+        letter-spacing: .10em;
+        text-transform: uppercase;
+        color: rgba(25,22,20,.55);
+      }
+      .card-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: rgba(25,22,20,.75);
+      }
+      .card-cta span { text-decoration: underline; text-decoration-color: rgba(196,148,74,.55); text-underline-offset: 3px; }
+
+      /* ── Empty state ── */
+      .empty {
+        grid-column: 1 / -1;
+        border: 1px dashed rgba(25,22,20,.18);
+        border-radius: 18px;
+        padding: 28px;
+        background: rgba(253,250,246,.35);
+        color: rgba(25,22,20,.70);
+      }
+      .empty-title { font-size: 18px; font-weight: 500; }
+      .empty-sub { margin-top: 6px; color: rgba(25,22,20,.55); font-size: 13px; line-height: 1.8; }
+
+      /* ── Footer spacing ── */
+      #siteFooter { margin-top: 10px; }
+
+      /* ── Small fade-up ── */
+      .fade-up { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+      .fade-up.visible { opacity: 1; transform: translateY(0); }
+    </style>
+  </head>
+
+  <body
+    class="font-sans bg-cream text-ink"
+    data-page="news"
+    data-header-subtitle="News"
+    data-header-cta-text="Book now"
+    data-header-cta-href="bookingDesktop.html"
+  >
+    <div id="siteHeader"></div>
+
+    <main class="page" role="main">
+      <section class="hero">
+        <div class="container">
+          <div class="hero-top">
+            <div>
+              <div class="hero-label"><span class="gold-line"></span><span>Stories & stay notes</span></div>
+              <h1 class="hero-title f-display">Another House <em>news.</em></h1>
+              <p class="hero-sub">
+                Curated reading — room moods, local tips, and small rituals for a better stay. Browse by category or search a topic.
+              </p>
+            </div>
+
+            <a class="hero-card fade-up" href="newDetailDesktop.html?id=arrive-slower" data-article-link="arrive-slower" aria-label="Featured article">
+              <img
+                class="hero-card-img"
+                src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?auto=format&fit=crop&w=1600&q=70"
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+              />
+              <div class="hero-card-body">
+                <div class="badge"><span class="badge-dot"></span><span>Featured</span></div>
+                <div class="hero-card-title f-display">A slower way to <span class="f-italic">arrive.</span></div>
+                <div class="hero-card-meta">
+                  <span>Stay guide</span>
+                  <span>·</span>
+                  <span>5 min read</span>
+                  <span>·</span>
+                  <span>Mar 2026</span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="controls">
+            <div class="chips" id="chips"></div>
+
+            <div class="search">
+              <input id="searchInput" type="search" placeholder="Search: check-in, pets, cinema room…" />
+              <div class="count" id="resultCount">0 posts</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="container">
+          <div class="grid-inner" id="newsGrid" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+
+    <div id="siteFooter"></div>
+
+    <script>
+      const CATEGORIES = ["All", "Stay guide", "Rooms", "Local tips", "Behind the scenes"];
+
+      const POSTS = [
+        {
+          id: "arrive-slower",
+          title: "A slower way to arrive",
+          emphasis: "arrive",
+          category: "Stay guide",
+          date: "Mar 2026",
+          readMins: 5,
+          excerpt: "A gentle checklist for check-in day: timing, light, and the first 10 minutes that set the mood.",
+          img: "https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?auto=format&fit=crop&w=1400&q=70",
+        },
+        {
+          id: "choose-your-mood",
+          title: "Choose your mood: Romantic, Sky, Cinema…",
+          emphasis: "mood",
+          category: "Rooms",
+          date: "Mar 2026",
+          readMins: 6,
+          excerpt: "Not sure which concept fits you? Here’s a fast guide to picking the room that matches your weekend energy.",
+          img: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1400&q=70",
+        },
+        {
+          id: "cinema-night",
+          title: "Cinema room night routine",
+          emphasis: "Cinema",
+          category: "Rooms",
+          date: "Feb 2026",
+          readMins: 4,
+          excerpt: "A simple setup for projector nights: dim layers, snacks, and a sound check that feels like a private screening.",
+          img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1400&q=70",
+        },
+        {
+          id: "morning-light",
+          title: "Morning light, minimal noise",
+          emphasis: "Morning",
+          category: "Stay guide",
+          date: "Feb 2026",
+          readMins: 3,
+          excerpt: "How we tune the space for quiet mornings: soft light, calm surfaces, and a few slow rituals.",
+          img: "https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=1400&q=70",
+        },
+        {
+          id: "local-cafe-walk",
+          title: "A short walk to coffee",
+          emphasis: "coffee",
+          category: "Local tips",
+          date: "Jan 2026",
+          readMins: 4,
+          excerpt: "3 nearby places we love for a calm cup. Best times to go and what to order if you like it less sweet.",
+          img: "https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&w=1400&q=70",
+        },
+        {
+          id: "materials-story",
+          title: "Materials that feel honest",
+          emphasis: "Materials",
+          category: "Behind the scenes",
+          date: "Jan 2026",
+          readMins: 7,
+          excerpt: "Concrete, oak, linen — why we use fewer materials, and why the light matters more than decoration.",
+          img: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1400&q=70",
+        },
+      ];
+
+      const $ = (sel, root = document) => root.querySelector(sel);
+      const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+      function escapeHtml(str) {
+        return String(str)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      let activeCategory = "All";
+      let query = "";
+
+      function matches(post) {
+        const q = query.trim().toLowerCase();
+        const catOk = activeCategory === "All" || post.category === activeCategory;
+        if (!catOk) return false;
+        if (!q) return true;
+        const hay = `${post.title} ${post.category} ${post.excerpt}`.toLowerCase();
+        return hay.includes(q);
+      }
+
+      function renderChips() {
+        const wrap = $("#chips");
+        wrap.innerHTML = "";
+        CATEGORIES.forEach((c) => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "chip" + (c === activeCategory ? " is-active" : "");
+          b.textContent = c;
+          b.addEventListener("click", () => {
+            activeCategory = c;
+            render();
+          });
+          wrap.appendChild(b);
+        });
+      }
+
+      function cardHtml(p, idx) {
+        const title = escapeHtml(p.title);
+        const cat = escapeHtml(p.category);
+        const excerpt = escapeHtml(p.excerpt);
+        const date = escapeHtml(p.date);
+        const read = `${p.readMins} min read`;
+        return `
+          <a class="card fade-up" href="#" data-article-link="${escapeHtml(p.id)}" style="transition-delay:${idx * 0.06}s">
+            <div class="card-media">
+              <img src="${escapeHtml(p.img)}" alt="" aria-hidden="true" loading="lazy" />
+              <span class="tag">${cat}</span>
+            </div>
+            <div class="card-body">
+              <div class="card-title f-display">${title}</div>
+              <p class="card-excerpt">${excerpt}</p>
+              <div class="card-meta">
+                <span>${date}</span>
+                <span class="card-cta"><span>Read</span> →</span>
+                <span>${escapeHtml(read)}</span>
+              </div>
+            </div>
+          </a>
+        `;
+      }
+
+      function render() {
+        renderChips();
+        const list = POSTS.filter(matches);
+
+        const grid = $("#newsGrid");
+        if (list.length === 0) {
+          grid.innerHTML = `
+            <div class="empty">
+              <div class="empty-title">No posts found</div>
+              <div class="empty-sub">Try another category or a different search term.</div>
+            </div>
+          `;
+        } else {
+          grid.innerHTML = list.map(cardHtml).join("");
+        }
+
+        $("#resultCount").textContent = `${list.length} post${list.length === 1 ? "" : "s"}`;
+
+        // Fade-up
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          });
+        }, { threshold: 0.08 });
+        $$(".fade-up").forEach((el) => obs.observe(el));
+      }
+
+      $("#searchInput").addEventListener("input", (e) => {
+        query = e.target.value || "";
+        render();
+      });
+
+      document.addEventListener("click", (e) => {
+        const a = e.target.closest?.("[data-article-link]");
+        if (!a) return;
+        e.preventDefault();
+        const articleId = a.dataset.articleLink;
+        window.location.href = `newDetailDesktop.html?id=${articleId}`;
+      });
+
+      render();
+    </script>
+
+    <script src="../assets/js/header.js"></script>
+    <script src="../assets/js/footer.js"></script>
+    <script src="../assets/js/chatbotAi.js"></script>
+  </body>
+</html>
